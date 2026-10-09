@@ -1,0 +1,419 @@
+[01-Jul-2026 12:31:28 Asia/Jakarta] PHP Warning:  Undefined variable $pdo in /home/skmm5736/public_html/agendakepala/index.php on line 943
+[01-Jul-2026 12:31:28 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/skmm5736/public_html/agendakepala/index.php:943
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/index.php on line 943
+[01-Jul-2026 12:32:34 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'skmm5736_agenda'@'localhost' (using password: YES) in /home/skmm5736/public_html/agendakepala/config/database.php:28
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/config/database.php(28): PDO->__construct()
+#1 /home/skmm5736/public_html/agendakepala/login.php(24): getPdo()
+#2 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/config/database.php on line 28
+[01-Jul-2026 12:32:38 Asia/Jakarta] PHP Warning:  Undefined variable $pdo in /home/skmm5736/public_html/agendakepala/index.php on line 943
+[01-Jul-2026 12:32:38 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/skmm5736/public_html/agendakepala/index.php:943
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/index.php on line 943
+[01-Jul-2026 12:35:43 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'skmm5736_agenda'@'localhost' (using password: YES) in /home/skmm5736/public_html/agendakepala/config/database.php:28
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/config/database.php(28): PDO->__construct()
+#1 /home/skmm5736/public_html/agendakepala/login.php(24): getPdo()
+#2 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/config/database.php on line 28
+[01-Jul-2026 12:46:00 Asia/Jakarta] PHP Warning:  Undefined variable $pdo in /home/skmm5736/public_html/agendakepala/index.php on line 943
+[01-Jul-2026 12:46:00 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/skmm5736/public_html/agendakepala/index.php:943
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/index.php on line 943
+[01-Jul-2026 12:46:18 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'skmm5736_agenda'@'localhost' (using password: YES) in /home/skmm5736/public_html/agendakepala/config/database.php:28
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/config/database.php(28): PDO->__construct()
+#1 /home/skmm5736/public_html/agendakepala/login.php(24): getPdo()
+#2 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/config/database.php on line 28
+[01-Jul-2026 12:48:58 Asia/Jakarta] PHP Warning:  Undefined variable $pdo in /home/skmm5736/public_html/agendakepala/index.php on line 943
+[01-Jul-2026 12:48:58 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/skmm5736/public_html/agendakepala/index.php:943
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/index.php on line 943
+[01-Jul-2026 13:08:37 Asia/Jakarta] [index.php] Gagal mengambil agenda publik: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'agenda_date_end' in 'SELECT'
+[01-Jul-2026 13:11:33 Asia/Jakarta] [index.php] Gagal mengambil agenda publik: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'agenda_date_end' in 'SELECT'
+[01-Jul-2026 13:22:59 Asia/Jakarta] [index.php] Gagal mengambil agenda publik: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'agenda_date_end' in 'SELECT'
+[01-Jul-2026 13:25:39 Asia/Jakarta] [index.php] Gagal mengambil agenda publik: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'agenda_date_end' in 'SELECT'
+[01-Jul-2026 13:25:42 Asia/Jakarta] [index.php] Gagal mengambil agenda publik: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'agenda_date_end' in 'SELECT'
+[01-Jul-2026 13:26:02 Asia/Jakarta] [index.php] Gagal mengambil agenda publik: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'agenda_date_end' in 'SELECT'
+[01-Jul-2026 13:52:35 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_from in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 13:52:35 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_to in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 13:52:35 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $disp_status in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:03:48 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_from in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:03:48 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_to in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:03:48 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $disp_status in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:28:40 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_from in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:28:40 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_to in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:28:40 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $disp_status in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:30:07 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_from in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:30:07 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_to in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:30:07 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $disp_status in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:40:57 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'email' in 'SELECT' in /home/skmm5736/public_html/agendakepala/settings.php:19
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/settings.php(19): PDO->query()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/settings.php on line 19
+[01-Jul-2026 14:56:23 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_from in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:56:23 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_to in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:56:23 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $disp_status in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[01-Jul-2026 14:59:52 Asia/Jakarta] Gagal SMTP: Otorisasi SMTP gagal: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-38097da4c32sm634030a91.2 - gsmtp
+
+[01-Jul-2026 14:59:52 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function mail() in /home/skmm5736/public_html/agendakepala/app/helpers.php:155
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/settings.php(22): smtpSendMail()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 155
+[01-Jul-2026 15:04:33 Asia/Jakarta] Gagal SMTP: Otorisasi SMTP gagal: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-38095ea3011sm1357923a91.15 - gsmtp
+
+[01-Jul-2026 15:04:33 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function mail() in /home/skmm5736/public_html/agendakepala/app/helpers.php:171
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/settings.php(22): smtpSendMail()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 171
+[01-Jul-2026 15:12:11 Asia/Jakarta] Gagal SMTP: Otorisasi SMTP gagal: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-2ca3828b0e7sm27562135ad.47 - gsmtp
+
+[01-Jul-2026 15:12:11 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function mail() in /home/skmm5736/public_html/agendakepala/app/helpers.php:177
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/settings.php(25): smtpSendMail()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 177
+[01-Jul-2026 15:14:39 Asia/Jakarta] Gagal SMTP: Otorisasi SMTP gagal: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-2ca382abe74sm28529445ad.60 - gsmtp
+
+[01-Jul-2026 15:33:50 Asia/Jakarta] Gagal SMTP: Otorisasi SMTP gagal: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d2e1a72fcca58-847a033a079sm3543972b3a.43 - gsmtp
+
+[02-Jul-2026 09:12:02 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number in /home/skmm5736/public_html/agendakepala/agenda.php:75
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/agenda.php(75): PDOStatement->execute()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/agenda.php on line 75
+[02-Jul-2026 09:12:38 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number in /home/skmm5736/public_html/agendakepala/agenda.php:75
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/agenda.php(75): PDOStatement->execute()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/agenda.php on line 75
+[02-Jul-2026 09:14:35 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number in /home/skmm5736/public_html/agendakepala/agenda.php:75
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/agenda.php(75): PDOStatement->execute()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/agenda.php on line 75
+[09-Jul-2026 14:29:41 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_from in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[09-Jul-2026 14:29:41 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_to in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[09-Jul-2026 14:29:41 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $disp_status in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[09-Jul-2026 14:46:49 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_from in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[09-Jul-2026 14:46:49 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_to in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[09-Jul-2026 14:46:49 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $disp_status in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[10-Jul-2026 11:38:38 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_from in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[10-Jul-2026 11:38:38 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_to in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[10-Jul-2026 11:38:38 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $disp_status in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[10-Jul-2026 15:11:47 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file in /home/skmm5736/public_html/agendakepala/index.php on line 1545
+[10-Jul-2026 15:11:50 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file in /home/skmm5736/public_html/agendakepala/index.php on line 1545
+[10-Jul-2026 15:12:15 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file in /home/skmm5736/public_html/agendakepala/index.php on line 1545
+[10-Jul-2026 16:38:55 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file in /home/skmm5736/public_html/agendakepala/index.php on line 1528
+[10-Jul-2026 16:39:18 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file in /home/skmm5736/public_html/agendakepala/index.php on line 1528
+[10-Jul-2026 17:00:18 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_from in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[10-Jul-2026 17:00:18 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $date_to in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[10-Jul-2026 17:00:18 Asia/Jakarta] PHP Warning:  compact(): Undefined variable $disp_status in /home/skmm5736/public_html/agendakepala/export_laporan.php on line 29
+[10-Jul-2026 17:31:25 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:31:25 Asia/Jakarta] PHP Warning:  Undefined variable $totalMasuk in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:31:25 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 528
+[10-Jul-2026 17:31:36 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:31:36 Asia/Jakarta] PHP Warning:  Undefined variable $totalMasuk in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:31:36 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 528
+[10-Jul-2026 17:33:32 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:33:32 Asia/Jakarta] PHP Warning:  Undefined variable $totalMasuk in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:33:32 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 528
+[10-Jul-2026 17:34:03 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:34:03 Asia/Jakarta] PHP Warning:  Undefined variable $totalMasuk in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:34:03 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 528
+[10-Jul-2026 17:34:37 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:34:37 Asia/Jakarta] PHP Warning:  Undefined variable $totalMasuk in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:34:37 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 528
+[10-Jul-2026 17:36:06 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:36:06 Asia/Jakarta] PHP Warning:  Undefined variable $totalMasuk in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:36:06 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 528
+[10-Jul-2026 17:38:43 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:38:43 Asia/Jakarta] PHP Warning:  Undefined variable $totalMasuk in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:38:43 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 528
+[10-Jul-2026 17:38:53 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:38:53 Asia/Jakarta] PHP Warning:  Undefined variable $totalMasuk in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:38:53 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 528
+[10-Jul-2026 17:39:06 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:39:06 Asia/Jakarta] PHP Warning:  Undefined variable $totalMasuk in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:39:06 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 528
+[10-Jul-2026 17:46:50 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:46:50 Asia/Jakarta] PHP Warning:  Undefined variable $totalMasuk in /home/skmm5736/public_html/agendakepala/dashboard.php on line 504
+[10-Jul-2026 17:46:50 Asia/Jakarta] PHP Warning:  Undefined variable $dbError in /home/skmm5736/public_html/agendakepala/dashboard.php on line 528
+[13-Jul-2026 08:44:50 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file in /home/skmm5736/public_html/agendakepala/index.php on line 1552
+[13-Jul-2026 10:00:33 Asia/Jakarta] PHP Warning:  Undefined variable $qs in /home/skmm5736/public_html/agendakepala/index.php on line 485
+[13-Jul-2026 10:00:33 Asia/Jakarta] PHP Warning:  Undefined variable $qs in /home/skmm5736/public_html/agendakepala/index.php on line 493
+[20-Jul-2026 14:56:56 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function rateLimit() in /home/skmm5736/public_html/agendakepala/ai_process_background.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/ai_process_background.php on line 21
+[21-Jul-2026 08:13:11 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:13:16 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:13:19 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:13:31 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:13:47 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:13:58 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:15:18 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:15:26 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:23:19 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:24:06 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:24:22 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:36:06 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:36:27 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 9
+[21-Jul-2026 08:37:21 Asia/Jakarta] PHP Fatal error:  strict_types declaration must be the very first statement in the script in /home/skmm5736/public_html/agendakepala/dashboard.php on line 6
+[21-Jul-2026 08:37:25 Asia/Jakarta] PHP Fatal error:  strict_types declaration must be the very first statement in the script in /home/skmm5736/public_html/agendakepala/dashboard.php on line 6
+[21-Jul-2026 08:40:56 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 8
+[21-Jul-2026 08:41:24 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 8
+[21-Jul-2026 08:43:18 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 8
+[21-Jul-2026 08:49:04 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 8
+[22-Jul-2026 01:25:25 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 8
+[22-Jul-2026 01:25:32 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 8
+[22-Jul-2026 01:25:33 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function isArsiparis() in /home/skmm5736/public_html/agendakepala/dashboard.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/dashboard.php on line 8
+[22-Jul-2026 01:32:07 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/../config/env.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:32:07 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/../config/env.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:12
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:32:10 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/../config/env.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:32:10 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/../config/env.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:12
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:32:14 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/../config/env.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:32:14 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/../config/env.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:12
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:32:14 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/../config/env.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:32:14 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/../config/env.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:12
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:33:32 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/../config/env.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:33:32 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/../config/env.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:12
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:33:39 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/../config/env.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:33:39 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/../config/env.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:12
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:34:30 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/../config/env.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:34:30 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/../config/env.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:12
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:34:40 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/../config/env.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:34:40 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/../config/env.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:12
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 12
+[22-Jul-2026 01:41:43 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/i18n.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 13
+[22-Jul-2026 01:41:43 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/i18n.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:13
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 13
+[22-Jul-2026 01:41:49 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/i18n.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 13
+[22-Jul-2026 01:41:49 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/i18n.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:13
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 13
+[22-Jul-2026 01:41:49 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/i18n.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 13
+[22-Jul-2026 01:41:49 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/i18n.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:13
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 13
+[22-Jul-2026 01:44:02 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/i18n.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 16
+[22-Jul-2026 01:44:02 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/i18n.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:16
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 16
+[22-Jul-2026 01:44:19 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/i18n.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 16
+[22-Jul-2026 01:44:19 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/i18n.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:16
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/index.php(5): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 16
+[22-Jul-2026 01:45:09 Asia/Jakarta] PHP Warning:  require_once(/home/skmm5736/public_html/agendakepala/app/i18n.php): Failed to open stream: No such file or directory in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 16
+[22-Jul-2026 01:45:09 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/skmm5736/public_html/agendakepala/app/i18n.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/skmm5736/public_html/agendakepala/app/helpers.php:16
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/dashboard.php(4): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 16
+[22-Jul-2026 01:48:38 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/skmm5736/public_html/agendakepala/app/helpers.php:257
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/dashboard.php(4): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 257
+[22-Jul-2026 01:49:42 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/skmm5736/public_html/agendakepala/app/helpers.php:257
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/dashboard.php(4): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 257
+[22-Jul-2026 01:49:44 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/skmm5736/public_html/agendakepala/app/helpers.php:257
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/dashboard.php(4): require_once()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/helpers.php on line 257
+[22-Jul-2026 07:49:02 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function env_bool() in /home/skmm5736/public_html/agendakepala/app/google_drive_storage.php:21
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/agenda_form.php(504): GoogleDriveStorage::isEnabled()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/google_drive_storage.php on line 21
+[22-Jul-2026 07:53:18 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function env_bool() in /home/skmm5736/public_html/agendakepala/app/google_drive_storage.php:21
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/agenda_form.php(504): GoogleDriveStorage::isEnabled()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/google_drive_storage.php on line 21
+[22-Jul-2026 08:20:31 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function env_bool() in /home/skmm5736/public_html/agendakepala/app/google_drive_storage.php:21
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/agenda_form.php(504): GoogleDriveStorage::isEnabled()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/google_drive_storage.php on line 21
+[22-Jul-2026 08:34:01 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function env_bool() in /home/skmm5736/public_html/agendakepala/app/google_drive_storage.php:21
+Stack trace:
+#0 /home/skmm5736/public_html/agendakepala/agenda_form.php(196): GoogleDriveStorage::isEnabled()
+#1 {main}
+  thrown in /home/skmm5736/public_html/agendakepala/app/google_drive_storage.php on line 21
+[22-Jul-2026 10:07:55 Asia/Jakarta] PHP Parse error:  syntax error, unexpected token "<" in /home/skmm5736/public_html/agendakepala/index.php on line 1418
+[22-Jul-2026 10:08:03 Asia/Jakarta] PHP Parse error:  syntax error, unexpected token "<" in /home/skmm5736/public_html/agendakepala/index.php on line 1418
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:27 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 10:12:39 Asia/Jakarta] PHP Warning:  Undefined variable $isPastEvent in /home/skmm5736/public_html/agendakepala/index.php on line 1427
+[22-Jul-2026 22:20:28 Asia/Jakarta] PHP Parse error:  syntax error, unexpected token "<" in /home/skmm5736/public_html/agendakepala/dashboard.php on line 649
+[22-Jul-2026 22:20:34 Asia/Jakarta] PHP Parse error:  syntax error, unexpected token "<" in /home/skmm5736/public_html/agendakepala/dashboard.php on line 649
+[22-Jul-2026 22:36:48 Asia/Jakarta] PHP Parse error:  syntax error, unexpected token "<" in /home/skmm5736/public_html/agendakepala/dashboard.php on line 649
+[23-Jul-2026 08:35:53 Asia/Jakarta] PHP Parse error:  syntax error, unexpected token "<" in /home/skmm5736/public_html/agendakepala/dashboard.php on line 649
+[23-Jul-2026 08:39:47 Asia/Jakarta] PHP Parse error:  syntax error, unexpected token "<" in /home/skmm5736/public_html/agendakepala/dashboard.php on line 649

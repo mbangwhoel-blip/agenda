@@ -1,0 +1,3 @@
+# Folder ini berisi skrip maintenance (PHP) untuk cronjob/repair.
+# Tidak boleh diakses publik. Hanya dijalankan via CLI.
+Require all denied

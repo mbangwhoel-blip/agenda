@@ -1,0 +1,27 @@
+{
+  "name": "Agenda Pimpinan BBLKL",
+  "short_name": "Agenda",
+  "description": "Sistem arsip digital agenda surat dan kegiatan pimpinan BBLKL",
+  "start_url": "/dashboard.php",
+  "display": "standalone",
+  "background_color": "#0f766e",
+  "theme_color": "#0f766e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/logo.png?v=2.2.1",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/logo.png?v=2.2.1",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "business"],
+  "lang": "id",
+  "dir": "ltr"
+}

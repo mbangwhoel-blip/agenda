@@ -1,0 +1,2 @@
+# Folder storage berisi log, backup, cache — jangan pernah expose ke publik.
+Require all denied

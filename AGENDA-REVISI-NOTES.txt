@@ -1,0 +1,14 @@
+AGENDA-REVISI
+
+Paket ini merupakan source kerja untuk revisi E-Office/Agenda.
+Backup source asli tetap berada pada file project awal.
+
+Tahapan pengecekan:
+- Struktur PHP
+- Asset
+- Layout
+- Modul surat
+- Responsiveness
+
+Catatan:
+Lakukan pengujian kembali pada server staging sebelum production.

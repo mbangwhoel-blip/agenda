@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ui-bg: #f8fafc;
+    --ui-surface: #ffffff;
+    --ui-surface-soft: #f1f5f9;
+    --ui-border: rgba(226, 232, 240, 0.8);
+    --ui-text: #0f172a;
+    --ui-text-soft: #475569;
+    --ui-brand: #4f46e5;
+    --ui-brand-strong: #4338ca;
+    --ui-brand-glow: rgba(79, 70, 229, 0.15);
+    --ui-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.03), 0 0 0 1px rgba(0, 0, 0, 0.01);
+    --ui-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  }
+}

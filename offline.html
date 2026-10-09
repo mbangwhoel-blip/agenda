@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offline — Agenda Pimpinan</title>
+<link rel="icon" href="assets/logo.png?v=2.2.1" type="image/png" sizes="32x32">
+<style>
+body{font-family:system-ui,sans-serif;background:#f8fafc;color:#0f172a;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:2rem}
+.card{max-width:28rem;text-align:center;background:#fff;border:1px solid #e2e8f0;border-radius:1.5rem;padding:2.5rem;box-shadow:0 10px 25px -5px rgba(0,0,0,.1)}
+.icon{width:4rem;height:4rem;margin:0 auto 1.5rem;background:#f1f5f9;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.icon svg{width:2rem;height:2rem;color:#64748b}
+h1{font-size:1.5rem;font-weight:800;margin:0 0 .5rem}
+p{color:#64748b;font-size:.95rem;margin:0 0 1.5rem}
+button{background:#0f766e;color:#fff;border:0;padding:.75rem 1.5rem;border-radius:.75rem;font-weight:600;cursor:pointer;font-size:.9rem}
+button:hover{background:#115e59}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg></div>
+<h1>Anda sedang offline</h1>
+<p>Tidak ada koneksi internet. Beberapa fitur (surat, agenda, disposisi) membutuhkan koneksi. Halaman yang sudah pernah dibuka masih tersedia.</p>
+<button onclick="location.reload()">Coba lagi</button>
+</div>
+</body>
+</html>

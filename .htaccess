@@ -1,0 +1,86 @@
+# Matikan daftar folder (directory listing)
+Options -Indexes
+
+# HTTPS redirect (uncomment saat production HTTPS aktif)
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Lindungi file sensitif dan tersembunyi
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Lindungi file sistem
+<FilesMatch "^(README\.md|composer\.json|composer\.lock|\.env|\.env\.example|error_log|indes\.log|openapi\.yaml|Dockerfile|docker-compose\.yml|package\.json|package-lock\.json|phpunit\.xml)$">
+    Require all denied
+</FilesMatch>
+
+# Blokir semua file log
+<FilesMatch "\.(log|bak|sql|env)$">
+    Require all denied
+</FilesMatch>
+
+# Blokir file test/debug/diagnostik yang tidak boleh diakses publik
+# (diag_* dan cek_* memakai display_errors=1 — bocorkan info path/DB bila terbuka)
+# oauth_setup.php & ai_cleanup.php TIDAK diblokir di sini: keduanya fitur aplikasi
+# dengan guard auth PHP sendiri (lihat dalam file masing-masing).
+<FilesMatch "^(test_|debug_|diag_|cek_|cleanup_final\.php)">
+    Require all denied
+</FilesMatch>
+
+# Blokir direktori non-aplikasi (tools OCR, tests, docs, database, scripts, .kiro, .github)
+# Pattern mengakomodasi deployment di root maupun subfolder.
+RedirectMatch 404 (^|/)(tools|tests|docs|database|scripts|\.kiro|\.github|node_modules)(/|$)
+
+# Kompresi gzip untuk teks/aset (kemenkes.css 90KB → ~15KB)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/json application/xml image/svg+xml
+</IfModule>
+
+# Cache aset statis lama (URL memakai ?v= sehingga aman untuk versi panjang)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresDefault "access plus 1 hour"
+</IfModule>
+
+# Security headers (defense in depth)
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    # HSTS hanya aktif di HTTPS (uncomment saat produksi HTTPS)
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+    # CSP: seluruh aset JS/CSS/font sudah lokal (alpine, sweetalert2, chart.js, fullcalendar,
+    # Plus Jakarta Sans self-hosted di assets/fonts/).
+    # 'unsafe-inline' untuk style diperlukan SweetAlert2 dan dark-mode script.
+    # 'unsafe-eval' untuk script diperlukan Alpine.js mengevaluasi expression x-data/@click.
+    # 'data:' di font-src diperlukan FullCalendar (embedded base64 font).
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; frame-src 'self' data: blob:; object-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+</IfModule>
+
+# Pengaturan batas memori dan upload (sesuaikan jika perlu)
+# Jika terjadi error 500 (Internal Server Error) di hosting, biarkan baris di bawah ini tetap dikomentari (dengan tanda #)
+# <IfModule mod_php.c>
+#     php_value memory_limit 256M
+#     php_value upload_max_filesize 20M
+#     php_value post_max_size 25M
+# </IfModule>
+# <IfModule mod_php7.c>
+#     php_value memory_limit 256M
+#     php_value upload_max_filesize 20M
+#     php_value post_max_size 25M
+# </IfModule>
+# <IfModule mod_php8.c>
+#     php_value memory_limit 256M
+#     php_value upload_max_filesize 20M
+#     php_value post_max_size 25M
+# </IfModule>

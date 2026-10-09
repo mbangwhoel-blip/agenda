@@ -1,0 +1,18 @@
+{
+  "name": "agenda-php",
+  "version": "1.0.0",
+  "description": "Aplikasi web sederhana untuk sekretaris pimpinan dalam mengelola: - Agenda surat masuk/keluar - Agenda kegiatan masuk/keluar - Dokumentasi status, prioritas, dan catatan tindak lanjut - Upload lampiran dokumen - Export laporan Excel dan print PDF",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./assets/css/input.css -o ./assets/css/kemenkes.css --minify",
+    "watch:css": "tailwindcss -i ./assets/css/input.css -o ./assets/css/kemenkes.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.11",
+    "tailwindcss": "^3.4.19"
+  }
+}

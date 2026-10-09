@@ -1,0 +1,49 @@
+# ===========================================
+# .gitignore — Agenda Pimpinan
+# ===========================================
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+config/secrets.php
+
+# Vendor (di-install via composer)
+/vendor/
+
+# Storage runtime (logs, backups, cache)
+/storage/logs/*
+/storage/backups/*
+/storage/cache/*
+!storage/lang/
+!storage/lang/id.php
+!storage/lang/en.php
+
+# Uploads user (jangan commit file user)
+/uploads/*
+!uploads/.htaccess
+!uploads/debug_emails/.htaccess
+
+# Backup/archive
+*.rar
+*.zip
+*.sql
+*.sql.gz
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (untuk Vite build)
+node_modules/
+dist/
+
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.xml

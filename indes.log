@@ -1,0 +1,318 @@
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "{ tab: 'semua' }"
+
+ <div id=​"stats-section" class=​"rounded-3xl overflow-hidden border border-slate-200 dark:​border-white/​10 shadow-lg dark:​shadow-none bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" x-data=​"{ tab:​ 'semua' }​">​…​</div>​
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "tab==='semua' ? 'bg-slate-500/20 text-slate-200 border-slate-500/40' : 'text-slate-500 border-transparent hover:text-slate-300'"
+
+ <button @click=​"tab='semua'" :class=​"tab==='semua' ? 'bg-slate-500/​20 text-slate-200 border-slate-500/​40' :​ 'text-slate-500 border-transparent hover:​text-slate-300'" class=​"flex-1 rounded-lg border px-3 py-1.5 text-[11px]​ font-bold uppercase tracking-wide transition-all duration-200">​ Semua Bulan ​</button>​
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "tab='semua'"
+
+ <button @click=​"tab='semua'" :class=​"tab==='semua' ? 'bg-slate-500/​20 text-slate-200 border-slate-500/​40' :​ 'text-slate-500 border-transparent hover:​text-slate-300'" class=​"flex-1 rounded-lg border px-3 py-1.5 text-[11px]​ font-bold uppercase tracking-wide transition-all duration-200">​ Semua Bulan ​</button>​
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "tab==='bulan' ? 'bg-kcyan-500/20 text-kcyan-300 border-kcyan-500/40' : 'text-slate-500 border-transparent hover:text-slate-300'"
+
+ <div :class=​"tab==='bulan' ? 'bg-kcyan-500/​20 text-kcyan-300 border-kcyan-500/​40' :​ 'text-slate-500 border-transparent hover:​text-slate-300'" class=​"flex-1 flex items-center justify-between rounded-lg border px-1 py-1 transition-all duration-200">​…​</div>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "tab='bulan'"
+
+ <button @click=​"tab='bulan'" class=​"flex-1 text-[11px]​ font-bold uppercase tracking-wide text-center h-full">​ Juli 2026 ​</button>​
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "tab==='bulan'"
+
+ <div x-show=​"tab==='bulan'" class=​"px-5 pb-4 grid gap-3 grid-cols-2">​…​</div>​grid
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "tab==='semua'"
+
+ <div x-show=​"tab==='semua'" class=​"px-5 pb-4 grid gap-3 grid-cols-2">​…​</div>​grid
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "{ isSearching: false }"
+
+ <form x-data=​"{ isSearching:​ false }​" @submit=​"isSearching = true" method=​"GET" action=​"index.php" onsubmit=​"setTimeout(()​=>{const el=document.getElementById('agenda-kegiatan')​;​if(el)​el.scrollIntoView({behavior:​'smooth'}​)​;​}​,100)​;​" class=​"flex items-center gap-2 w-full sm:​w-auto">​…​</form>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "isSearching = true"
+
+ <form x-data=​"{ isSearching:​ false }​" @submit=​"isSearching = true" method=​"GET" action=​"index.php" onsubmit=​"setTimeout(()​=>{const el=document.getElementById('agenda-kegiatan')​;​if(el)​el.scrollIntoView({behavior:​'smooth'}​)​;​}​,100)​;​" class=​"flex items-center gap-2 w-full sm:​w-auto">​…​</form>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "isSearching = true; $el.form.submit()"
+
+ <select name=​"km" @change=​"isSearching = true;​ $el.form.submit()​" class=​"rounded-xl bg-white dark:​bg-white/​5 border border-slate-200 dark:​border-white/​10 shadow-sm dark:​shadow-none pl-3 pr-8 py-2 text-sm text-slate-700 dark:​text-slate-300 focus:​outline-none focus:​border-kcyan-400 focus:​ring-1 focus:​ring-cyan-400 min-h-[44px]​">​…​</select>​
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "!isSearching"
+
+ <span x-show=​"!isSearching">​Cari​</span>​
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "isSearching"
+
+ <svg x-show=​"isSearching" style=​"display:​ none;​" class=​"animate-spin h-5 w-5 text-slate-950" xmlns=​"http:​/​/​www.w3.org/​2000/​svg" fill=​"none" viewBox=​"0 0 24 24">​…​</svg>​
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "{ events: {"15":[{"id":51,"title":"Undangan Workshop Target Product Profile (TPP) Sistem Surveilans Air Limbah untuk Patogen dengan Potensi Pandemi","mode":"offline","time":"09:00 WIB"}],"3":[{"id":53,"title":"Undangan Serah Terima Jabatan Ketua Darma Wanita RSPAW Salatiga","mode":"offline","time":"14:00 WIB"},{"id":64,"title":"Nota Dinas PIB Manajemen Risiko","mode":"zoom","time":"09:00 WIB"}],"9":[{"id":58,"title":"Pemanggilan Peserta E-Learning PPG Kemenkes Tahun 2026 Batch II","mode":"zoom","time":"08:00 WIB"}],"10":[{"id":58,"title":"Pemanggilan Peserta E-Learning PPG Kemenkes Tahun 2026 Batch II","mode":"zoom","time":"08:00 WIB"}],"11":[{"id":58,"title":"Pemanggilan Peserta E-Learning PPG Kemenkes Tahun 2026 Batch II","mode":"zoom","time":"08:00 WIB"}],"1":[{"id":60,"title":"Kartu Ucapan Hari Buah Sedunia","mode":"offline","time":"09:00 WIB"}],"8":[{"id":62,"title":"Undangan Pertemuan Lanjutan Penyusunan Kurikulum dan Modul Genomik Sekuensing","mode":"zoom","time":"08:00 WIB"}],"16":[{"id":66,"title":"Webinar Kesehatan Nasional \"Waspada Mpox: Deteksi Cepat, Respon dengan Tepat\"","mode":"zoom","time":"08:30 WIB"}]}, showAgenda(day) { 
+                if(!this.events[day]) return;
+                let html = `
+                    <div class='space-y-3 mt-4 text-left'>
+                        ${this.events[day].map(e => {
+                            let mode = e.mode.toLowerCase();
+                            let dotClass = mode === 'zoom' ? 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.5)]' : (mode === 'hybrid' ? 'bg-lime-500 shadow-[0_0_8px_rgba(132,204,22,0.5)]' : 'bg-teal-500 shadow-[0_0_8px_rgba(20,184,166,0.5)]');
+                            let hoverText = mode === 'zoom' ? 'group-hover:text-rose-600 dark:group-hover:text-rose-400' : (mode === 'hybrid' ? 'group-hover:text-lime-600 dark:group-hover:text-lime-400' : 'group-hover:text-teal-600 dark:group-hover:text-teal-400');
+                            let target = mode === 'zoom' || mode === 'hybrid' ? 'index.php#agenda-zoom' : 'index.php#agenda-kegiatan';
+                            
+                            return `
+                            <a href='${target}' onclick='Swal.close()' class='flex items-start p-3.5 bg-slate-50/50 dark:bg-slate-700/30 rounded-xl border border-slate-100 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-200 group cursor-pointer'>
+                                <div class='flex-shrink-0 mt-1.5'>
+                                    <div class='w-2 h-2 rounded-full ${dotClass} group-hover:scale-125 transition-transform duration-200'></div>
+                                </div>
+                                <div class='ml-3 flex-1'>
+                                    <p class='text-[13px] font-semibold text-slate-700 dark:text-slate-200 leading-relaxed ${hoverText} transition-colors'>${e.title}</p>
+                                    <div class='flex items-center gap-1.5 mt-1.5'>
+                                        <svg class='w-3.5 h-3.5 text-slate-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'></path><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'></path></svg>
+                                        <p class='text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider'>${e.mode}</p>
+                                        ${e.time ? `<span class='text-slate-300 dark:text-slate-600 mx-1'>•</span><svg class='w-3.5 h-3.5 text-slate-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'></path></svg><p class='text-[11px] font-medium text-slate-500 dark:text-slate-400 tracking-wider'>${e.time}</p>` : ''}
+                                    </div>
+                                </div>
+                            </a>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                Swal.fire({
+                    title: `<div class='flex items-center gap-3'><div class='p-2 bg-indigo-50 dark:bg-indigo-500/10 rounded-lg'><svg class='w-5 h-5 text-indigo-600 dark:text-indigo-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'></path></svg></div><span class='text-lg font-bold text-slate-800 dark:text-white'>Agenda Tanggal ${day}</span></div>`,
+                    html: html,
+                    showConfirmButton: true,
+                    showCloseButton: true,
+                    confirmButtonText: 'Tutup',
+                    buttonsStyling: false,
+                    customClass: {
+                        popup: 'rounded-2xl p-5 bg-white dark:bg-slate-800 shadow-2xl border border-slate-100 dark:border-slate-700 max-w-sm max-h-[80vh] overflow-y-auto',
+                        title: 'text-left pb-0 border-b border-slate-100 dark:border-slate-700/50 pb-4 mb-2 pt-2',
+                        htmlContainer: 'text-left m-0',
+                        closeButton: 'text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-300',
+                        confirmButton: 'w-full mt-6 py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium transition-all duration-200 shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 outline-none border-none'
+                    },
+                    heightAuto: false,
+                    backdrop: `rgba(15, 23, 42, 0.5) backdrop-blur-sm`
+                });
+            } }"
+
+ <div class=​"grid grid-cols-7 gap-1 text-center text-sm" x-data=​"{ events:​ {"15":​[{"id":​51,"title":​"Undangan Workshop Target Product Profile (TPP)​ Sistem Surveilans Air Limbah untuk Patogen dengan Potensi Pandemi","mode":​"offline","time":​"09:​00 WIB"}​]​,"3":​[{"id":​53,"title":​"Undangan Serah Terima Jabatan Ketua Darma Wanita RSPAW Salatiga","mode":​"offline","time":​"14:​00 WIB"}​,{"id":​64,"title":​"Nota Dinas PIB Manajemen Risiko","mode":​"zoom","time":​"09:​00 WIB"}​]​,"9":​[{"id":​58,"title":​"Pemanggilan Peserta E-Learning PPG Kemenkes Tahun 2026 Batch II","mode":​"zoom","time":​"08:​00 WIB"}​]​,"10":​[{"id":​58,"title":​"Pemanggilan Peserta E-Learning PPG Kemenkes Tahun 2026 Batch II","mode":​"zoom","time":​"08:​00 WIB"}​]​,"11":​[{"id":​58,"title":​"Pemanggilan Peserta E-Learning PPG Kemenkes Tahun 2026 Batch II","mode":​"zoom","time":​"08:​00 WIB"}​]​,"1":​[{"id":​60,"title":​"Kartu Ucapan Hari Buah Sedunia","mode":​"offline","time":​"09:​00 WIB"}​]​,"8":​[{"id":​62,"title":​"Undangan Pertemuan Lanjutan Penyusunan Kurikulum dan Modul Genomik Sekuensing","mode":​"zoom","time":​"08:​00 WIB"}​]​,"16":​[{"id":​66,"title":​"Webinar Kesehatan Nasional \"Waspada Mpox:​ Deteksi Cepat, Respon dengan Tepat\"","mode":​"zoom","time":​"08:​30 WIB"}​]​}​, showAgenda(day)​ { 
+                if(!this.events[day]​)​ return;​
+                let html = `
+                    <div class='space-y-3 mt-4 text-left'>
+                        ${this.events[day]​.map(e => {
+                            let mode = e.mode.toLowerCase()​;​
+                            let dotClass = mode === 'zoom' ? 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.5)​]​' :​ (mode === 'hybrid' ? 'bg-lime-500 shadow-[0_0_8px_rgba(132,204,22,0.5)​]​' :​ 'bg-teal-500 shadow-[0_0_8px_rgba(20,184,166,0.5)​]​')​;​
+                            let hoverText = mode === 'zoom' ? 'group-hover:​text-rose-600 dark:​group-hover:​text-rose-400' :​ (mode === 'hybrid' ? 'group-hover:​text-lime-600 dark:​group-hover:​text-lime-400' :​ 'group-hover:​text-teal-600 dark:​group-hover:​text-teal-400')​;​
+                            let target = mode === 'zoom' || mode === 'hybrid' ? 'index.php#agenda-zoom' :​ 'index.php#agenda-kegiatan';​
+                            
+                            return `
+                            <a href='${target}​' onclick='Swal.close()​' class='flex items-start p-3.5 bg-slate-50/​50 dark:​bg-slate-700/​30 rounded-xl border border-slate-100 dark:​border-slate-700/​50 hover:​bg-slate-50 dark:​hover:​bg-slate-700/​50 hover:​scale-[1.02]​ active:​scale-[0.98]​ hover:​shadow-md transition-all duration-200 group cursor-pointer'>
+                                <div class='flex-shrink-0 mt-1.5'>
+                                    <div class='w-2 h-2 rounded-full ${dotClass}​ group-hover:​scale-125 transition-transform duration-200'></​div>
+                                </​div>
+                                <div class='ml-3 flex-1'>
+                                    <p class='text-[13px]​ font-semibold text-slate-700 dark:​text-slate-200 leading-relaxed ${hoverText}​ transition-colors'>${e.title}​</​p>
+                                    <div class='flex items-center gap-1.5 mt-1.5'>
+                                        <svg class='w-3.5 h-3.5 text-slate-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'></​path><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'></​path></​svg>
+                                        <p class='text-[11px]​ font-medium text-slate-500 dark:​text-slate-400 uppercase tracking-wider'>${e.mode}​</​p>
+                                        ${e.time ? `<span class='text-slate-300 dark:​text-slate-600 mx-1'>•</​span><svg class='w-3.5 h-3.5 text-slate-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'></​path></​svg><p class='text-[11px]​ font-medium text-slate-500 dark:​text-slate-400 tracking-wider'>${e.time}​</​p>` :​ ''}​
+                                    </​div>
+                                </​div>
+                            </​a>
+                            `;​
+                        }​)​.join('')​}​
+                    </​div>
+                `;​
+                Swal.fire({
+                    title:​ `<div class='flex items-center gap-3'><div class='p-2 bg-indigo-50 dark:​bg-indigo-500/​10 rounded-lg'><svg class='w-5 h-5 text-indigo-600 dark:​text-indigo-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'></​path></​svg></​div><span class='text-lg font-bold text-slate-800 dark:​text-white'>Agenda Tanggal ${day}​</​span></​div>`,
+                    html:​ html,
+                    showConfirmButton:​ true,
+                    showCloseButton:​ true,
+                    confirmButtonText:​ 'Tutup',
+                    buttonsStyling:​ false,
+                    customClass:​ {
+                        popup:​ 'rounded-2xl p-5 bg-white dark:​bg-slate-800 shadow-2xl border border-slate-100 dark:​border-slate-700 max-w-sm max-h-[80vh]​ overflow-y-auto',
+                        title:​ 'text-left pb-0 border-b border-slate-100 dark:​border-slate-700/​50 pb-4 mb-2 pt-2',
+                        htmlContainer:​ 'text-left m-0',
+                        closeButton:​ 'text-slate-400 hover:​text-slate-700 dark:​text-slate-500 dark:​hover:​text-slate-300',
+                        confirmButton:​ 'w-full mt-6 py-2.5 px-4 bg-indigo-600 hover:​bg-indigo-700 text-white rounded-xl font-medium transition-all duration-200 shadow-sm focus:​ring-2 focus:​ring-offset-2 focus:​ring-indigo-600 outline-none border-none'
+                    }​,
+                    heightAuto:​ false,
+                    backdrop:​ `rgba(15, 23, 42, 0.5)​ backdrop-blur-sm`
+                }​)​;​
+            }​ }​">​…​</div>​grid
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "showAgenda(1)"
+
+ <div @click=​"showAgenda(1)​" class=​"py-1.5 sm:​py-2 rounded-xl bg-slate-100 dark:​bg-slate-800 border border-slate-200 dark:​border-slate-700 opacity-70 text-slate-400 dark:​text-slate-500 cursor-pointer hover:​opacity-80 transition-colors relative flex items-center justify-center" title=​"Klik untuk melihat agenda">​…​</div>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "showAgenda(3)"
+
+ <div @click=​"showAgenda(3)​" class=​"py-1.5 sm:​py-2 rounded-xl bg-slate-100 dark:​bg-slate-800 border border-slate-200 dark:​border-slate-700 opacity-70 text-slate-400 dark:​text-slate-500 cursor-pointer hover:​opacity-80 transition-colors relative flex items-center justify-center" title=​"Klik untuk melihat agenda">​…​</div>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "showAgenda(8)"
+
+ <div @click=​"showAgenda(8)​" class=​"py-1.5 sm:​py-2 rounded-xl bg-slate-100 dark:​bg-slate-800 border border-slate-200 dark:​border-slate-700 opacity-70 text-slate-400 dark:​text-slate-500 cursor-pointer hover:​opacity-80 transition-colors relative flex items-center justify-center" title=​"Klik untuk melihat agenda">​…​</div>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "showAgenda(9)"
+
+ <div @click=​"showAgenda(9)​" class=​"py-1.5 sm:​py-2 rounded-xl bg-slate-100 dark:​bg-slate-800 border border-slate-200 dark:​border-slate-700 opacity-70 text-slate-400 dark:​text-slate-500 cursor-pointer hover:​opacity-80 transition-colors relative flex items-center justify-center" title=​"Klik untuk melihat agenda">​…​</div>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "showAgenda(10)"
+
+ <div @click=​"showAgenda(10)​" class=​"py-1.5 sm:​py-2 rounded-xl bg-slate-100 dark:​bg-slate-800 border border-slate-200 dark:​border-slate-700 opacity-70 text-slate-400 dark:​text-slate-500 cursor-pointer hover:​opacity-80 transition-colors relative flex items-center justify-center" title=​"Klik untuk melihat agenda">​…​</div>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "showAgenda(11)"
+
+ <div @click=​"showAgenda(11)​" class=​"py-1.5 sm:​py-2 rounded-xl bg-slate-100 dark:​bg-slate-800 border border-slate-200 dark:​border-slate-700 opacity-70 text-slate-400 dark:​text-slate-500 cursor-pointer hover:​opacity-80 transition-colors relative flex items-center justify-center" title=​"Klik untuk melihat agenda">​…​</div>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "showAgenda(15)"
+
+ <div @click=​"showAgenda(15)​" class=​"py-1.5 sm:​py-2 rounded-xl bg-slate-100 dark:​bg-slate-800 border border-slate-200 dark:​border-slate-700 opacity-70 text-slate-400 dark:​text-slate-500 cursor-pointer hover:​opacity-80 transition-colors relative flex items-center justify-center" title=​"Klik untuk melihat agenda">​…​</div>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "showAgenda(16)"
+
+ <div @click=​"showAgenda(16)​" class=​"py-1.5 sm:​py-2 rounded-xl bg-slate-100 dark:​bg-slate-800 border border-slate-200 dark:​border-slate-700 opacity-70 text-slate-400 dark:​text-slate-500 cursor-pointer hover:​opacity-80 transition-colors relative flex items-center justify-center" title=​"Klik untuk melihat agenda">​…​</div>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "{ showMobileStats: window.location.hash.includes('stats') }"
+
+ <div class=​"custom-lg-hidden mx-auto max-w-7xl px-4 sm:​px-6 pb-8" x-data=​"{ showMobileStats:​ window.location.hash.includes('stats')​ }​">​…​</div>​
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "showMobileStats = !showMobileStats"
+
+ <button @click=​"showMobileStats = !showMobileStats" class=​"w-full rounded-2xl border border-slate-300 dark:​border-slate-700 bg-white dark:​bg-slate-800 px-5 py-4 text-sm font-bold shadow-sm flex items-center justify-between text-slate-700 dark:​text-slate-200 transition-colors hover:​bg-slate-50 dark:​hover:​bg-slate-700/​50">​…​</button>​flex
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "showMobileStats ? 'rotate-180' : ''"
+
+ <svg :class=​"showMobileStats ? 'rotate-180' :​ ''" class=​"w-5 h-5 transition-transform duration-300" xmlns=​"http:​/​/​www.w3.org/​2000/​svg" fill=​"none" viewBox=​"0 0 24 24" stroke-width=​"2" stroke=​"currentColor">​…​</svg>​
+Bn @ cdn.min.js:1
+cdn.min.js:1 Alpine Expression Error: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+
+Expression: "showMobileStats"
+
+ <div x-show=​"showMobileStats" x-transition.opacity.duration.300ms class=​"mt-4">​…​</div>​
+Bn @ cdn.min.js:1
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+cdn.min.js:5 Uncaught EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net".
+
+index.php:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+index.php:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+index.php:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received

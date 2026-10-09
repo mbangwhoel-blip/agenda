@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: agenda-pimpinan-app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - APP_ENV=production
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=agenda_pimpinan
+      - DB_USER=agenda_app
+      - DB_PASS=${DB_PASS:-changeme}
+      - PWNED_CHECK_DISABLE=false
+    volumes:
+      - ./uploads:/var/www/html/uploads
+      - ./storage:/var/www/html/storage
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    container_name: agenda-pimpinan-db
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-rootpass}
+      - MYSQL_DATABASE=agenda_pimpinan
+      - MYSQL_USER=agenda_app
+      - MYSQL_PASSWORD=${DB_PASS:-changeme}
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./scripts/create_db_user.sql:/docker-entrypoint-initdb.d/01-create-user.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-rootpass}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Cron job untuk reminder H-1 (jalankan tiap jam 8 pagi)
+  cron:
+    image: curlimages/curl:latest
+    container_name: agenda-pimpinan-cron
+    restart: unless-stopped
+    depends_on:
+      - app
+    entrypoint: /bin/sh
+    command: >
+      -c "while true; do
+        sleep 86400;
+        curl -s -H 'Authorization: Bearer ${CRON_SECRET_KEY}' http://app/reminder_cron.php;
+      done"
+
+volumes:
+  dbdata:

@@ -1,0 +1,3 @@
+# Folder ini berisi skrip maintenance (PHP) yang memodifikasi DB/source code.
+# Tidak boleh diakses publik. Hanya dijalankan via CLI lokal oleh admin.
+Require all denied

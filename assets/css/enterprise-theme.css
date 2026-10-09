@@ -1,0 +1,18 @@
+/* E-Office Enterprise Premium Theme Layer */
+:root{
+ --eo-navy:#0f172a;
+ --eo-indigo:#4f46e5;
+ --eo-gold:#c8a951;
+ --eo-bg:#f8fafc;
+}
+body.app-shell{background:var(--eo-bg)!important;font-family:'Plus Jakarta Sans',system-ui,sans-serif;}
+.app-shell aside{border-color:#e2e8f0!important;}
+.app-shell aside .text-teal-700,.app-shell aside .dark\\:text-teal-400{color:var(--eo-indigo)!important;}
+.rounded-2xl{border-radius:20px!important;}
+.shadow-xl,.shadow-2xl{box-shadow:0 12px 35px rgba(15,23,42,.08)!important;}
+button,.btn,a[class*="bg-teal"],a[class*="bg-indigo"]{transition:all .2s ease;}
+button:hover,a[class*="bg-teal"]:hover,a[class*="bg-indigo"]:hover{transform:translateY(-1px);}
+input,select,textarea{border-radius:14px!important;}
+.eo-card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;box-shadow:0 8px 30px rgba(15,23,42,.06);}
+.eo-brand{letter-spacing:-.04em;font-weight:800;}
+@media(max-width:768px){.rounded-2xl{border-radius:16px!important;}}

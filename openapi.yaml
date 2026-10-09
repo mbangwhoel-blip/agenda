@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: Agenda Pimpinan BBLKL API
+  version: 1.0.0
+  description: REST API publik untuk akses terprogram agenda surat dan kegiatan.
+servers:
+  - url: https://your-domain.com
+    description: Production
+security:
+  - BearerAuth: []
+paths:
+  /api.php:
+    get:
+      summary: Query data agenda
+      parameters:
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [agendas, agenda, stats]
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [surat, kegiatan, zoom]
+            default: surat
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: id
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                  count:
+                    type: integer
+        '401':
+          description: Unauthorized
+        '429':
+          description: Rate limit exceeded
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

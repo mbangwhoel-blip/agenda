@@ -1,0 +1,861 @@
+:root {
+    --ui-bg: #f8fafc;
+    --ui-surface: #ffffff;
+    --ui-surface-soft: #f1f5f9;
+    --ui-border: rgba(226, 232, 240, 0.8);
+    --ui-text: #0f172a;
+    --ui-text-soft: #475569;
+    --ui-brand: #0f766e;
+    --ui-brand-strong: #115e59;
+    --ui-brand-glow: rgba(15, 118, 110, 0.15);
+    --ui-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.03), 0 0 0 1px rgba(0, 0, 0, 0.01);
+    --ui-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+/* Skip link untuk aksesibilitas keyboard */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 9999;
+    padding: 0.5rem 1rem;
+    background: #0f766e;
+    color: #fff;
+    border-radius: 0 0 0.5rem 0.5rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    transition: top 0.2s;
+    text-decoration: none;
+}
+.skip-link:focus {
+    top: 0;
+}
+
+/* Focus visible untuk semua elemen interaktif */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid #0f766e;
+    outline-offset: 2px;
+}
+
+/* Smooth transition dark mode */
+html {
+    transition: background-color 0.2s ease;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Custom Scrollbar for Premium Feel */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+body.app-shell {
+    background:
+        radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.04), transparent 45%),
+        radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.04), transparent 45%),
+        #f8fafc;
+    color: var(--ui-text-soft);
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui;
+    min-height: 100vh;
+}
+
+body.auth-shell {
+    background:
+        radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.1), transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(14, 165, 233, 0.08), transparent 45%),
+        #f8fafc;
+    color: var(--ui-text-soft);
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui;
+}
+
+.app-shell header {
+    backdrop-filter: blur(12px) saturate(180%);
+    border-bottom: 1px solid var(--ui-border);
+}
+.dark .app-shell header {
+    border-bottom: 1px solid #334155;
+}
+
+/* Elegant Cards & Panels */
+.app-shell .bg-white:not(aside):not(header):not(nav):not(button) {
+    border: 1px solid var(--ui-border);
+    box-shadow: var(--ui-shadow) !important;
+    border-radius: 1.25rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app-shell .bg-white:not(aside):not(header):not(nav):not(button):hover {
+    box-shadow: var(--ui-shadow-hover) !important;
+    border-color: rgba(99, 102, 241, 0.15);
+}
+
+/* Custom Table Polish */
+.app-shell table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.app-shell thead th {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 1.125rem 1.25rem !important;
+    border-bottom: 2px solid #e2e8f0;
+}
+.dark .app-shell thead th {
+    border-bottom: 2px solid #334155;
+}
+
+.app-shell tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.app-shell tbody tr:hover {
+    background-color: rgba(99, 102, 241, 0.02) !important;
+}
+
+.app-shell tbody td {
+    padding: 1.125rem 1.25rem !important;
+    font-size: 0.9rem;
+}
+
+/* Custom stats section customization */
+.app-shell .bg-slate-900 {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.2);
+}
+
+.app-shell .bg-slate-800 {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+}
+
+.app-shell .bg-slate-800:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    transform: translateY(-2px);
+}
+
+/* Inputs & Form Controls */
+.app-shell input[type="text"],
+.app-shell input[type="date"],
+.app-shell input[type="password"],
+.app-shell input[type="url"],
+.app-shell input[type="time"],
+.app-shell input[type="file"],
+.app-shell select,
+.app-shell textarea {
+    border: 1px solid #cbd5e1;
+    border-radius: 0.85rem;
+    background-color: transparent;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dark .app-shell input[type="text"],
+.dark .app-shell input[type="date"],
+.dark .app-shell input[type="password"],
+.dark .app-shell input[type="url"],
+.dark .app-shell input[type="time"],
+.dark .app-shell input[type="file"],
+.dark .app-shell select,
+.dark .app-shell textarea {
+    border: 1px solid #475569;
+}
+
+.app-shell input:focus,
+.app-shell select:focus,
+.app-shell textarea:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px var(--ui-brand-glow);
+    outline: none;
+}
+
+/* Primary Button Modernization */
+.app-shell .bg-indigo-600,
+.app-shell .bg-brand-600,
+.app-shell .bg-brand-500 {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.4);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0.85rem;
+}
+
+.app-shell .bg-indigo-600:hover,
+.app-shell .bg-brand-600:hover,
+.app-shell .bg-brand-500:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px 0 rgba(79, 70, 229, 0.45) !important;
+    filter: brightness(1.05);
+}
+
+.app-shell .bg-indigo-600:active,
+.app-shell .bg-brand-600:active,
+.app-shell .bg-brand-500:active {
+    transform: translateY(0) !important;
+}
+
+/* Badges Design */
+.ui-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+.ui-badge.bg-emerald-100 {
+    background-color: #ecfdf5 !important;
+    color: #047857 !important;
+    border-color: #a7f3d0 !important;
+}
+
+.ui-badge.bg-sky-100 {
+    background-color: #f0f9ff !important;
+    color: #0369a1 !important;
+    border-color: #bae6fd !important;
+}
+
+.ui-badge.bg-amber-100 {
+    background-color: #fffbeb !important;
+    color: #b45309 !important;
+    border-color: #fde68a !important;
+}
+
+.ui-badge.bg-rose-100 {
+    background-color: #fff5f5 !important;
+    color: #c53030 !important;
+    border-color: #feb2b2 !important;
+}
+
+.ui-badge.bg-slate-200,
+.ui-badge.bg-slate-100 {
+    background-color: #f1f5f9 !important;
+    color: #475569 !important;
+    border-color: #cbd5e1 !important;
+}
+
+/* Badges Statis Agenda */
+.badge-direncanakan,
+.badge-selesai {
+    background: linear-gradient(to right, #94a3b8, #6b7280) !important;
+}
+.badge-besok {
+    background: linear-gradient(to right, #22d3ee, #3b82f6) !important;
+}
+
+/* Badges Bergerak & Dinamis (Berlangsung, Hari Ini, Mendatang) */
+.badge-moving {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    background-size: 250% 250% !important;
+    will-change: transform, background-position, box-shadow;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    letter-spacing: 0.02em;
+}
+.badge-moving:hover {
+    transform: translateY(-4px) scale(1.08) !important;
+}
+
+/* 1. Berlangsung (Emerald-Teal) */
+.badge-moving-berlangsung {
+    background: linear-gradient(135deg, #059669, #10b981, #0d9488, #34d399, #059669) !important;
+    animation: badgeFloatBerlangsung 2.4s ease-in-out infinite, badgeGradientShift 4s ease infinite, badgeGlowBerlangsung 2.4s ease-in-out infinite !important;
+}
+
+/* 2. Hari Ini (Vibrant Sunset Orange) */
+.badge-moving-hari-ini {
+    background: linear-gradient(135deg, #ea580c, #f97316, #fb923c, #f59e0b, #ea580c) !important;
+    animation: badgeFloatHariIni 1.9s ease-in-out infinite, badgeGradientShift 3.2s ease infinite, badgeGlowHariIni 1.9s ease-in-out infinite !important;
+}
+
+/* 3. Mendatang (Purple-Fuchsia) */
+.badge-moving-mendatang {
+    background: linear-gradient(135deg, #7c3aed, #a855f7, #d946ef, #ec4899, #7c3aed) !important;
+    animation: badgeFloatMendatang 2.8s ease-in-out infinite, badgeGradientShift 4.5s ease infinite, badgeGlowMendatang 2.8s ease-in-out infinite !important;
+}
+
+/* Efek Kilau Cahaya Bergerak (Shimmer Light Sweep) */
+.badge-moving::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    transform: skewX(-20deg);
+    animation: badgeShimmerSweep 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    pointer-events: none;
+}
+
+/* Keyframes Gerak Naik-Turun (Floating Motion) */
+@keyframes badgeFloatBerlangsung {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-2.5px);
+    }
+}
+@keyframes badgeFloatHariIni {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+@keyframes badgeFloatMendatang {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-2px);
+    }
+}
+
+/* Keyframes Pergerakan Aliran Gradien Warna */
+@keyframes badgeGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Keyframes Pendaran Cahaya (Glow Pulse) */
+@keyframes badgeGlowBerlangsung {
+    0%, 100% {
+        box-shadow: 0 1px 4px rgba(16, 185, 129, 0.35);
+    }
+    50% {
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.65), 0 0 0 2px rgba(52, 211, 153, 0.3);
+    }
+}
+@keyframes badgeGlowHariIni {
+    0%, 100% {
+        box-shadow: 0 1px 4px rgba(234, 88, 12, 0.35);
+    }
+    50% {
+        box-shadow: 0 4px 14px rgba(249, 115, 22, 0.75), 0 0 0 2px rgba(251, 146, 60, 0.4);
+    }
+}
+@keyframes badgeGlowMendatang {
+    0%, 100% {
+        box-shadow: 0 1px 4px rgba(217, 70, 239, 0.35);
+    }
+    50% {
+        box-shadow: 0 4px 14px rgba(217, 70, 239, 0.65), 0 0 0 2px rgba(168, 85, 247, 0.3);
+    }
+}
+
+/* Keyframes Shimmer Sweep */
+@keyframes badgeShimmerSweep {
+    0%, 20% {
+        left: -120%;
+    }
+    60%, 100% {
+        left: 200%;
+    }
+}
+
+/* Tanggal Hari Ini di Kalender Mini Bergerak & Menarik Perhatian */
+.calendar-today-cell {
+    position: relative !important;
+    background: linear-gradient(135deg, #4f46e5, #6366f1, #7c3aed, #8b5cf6, #4f46e5) !important;
+    background-size: 250% 250% !important;
+    overflow: hidden !important;
+    z-index: 10 !important;
+    will-change: transform, box-shadow, background-position;
+    animation: calendarTodayFloat 2.2s ease-in-out infinite, calendarTodayGradient 4s ease infinite, calendarTodayGlow 2.2s ease-in-out infinite !important;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.calendar-today-cell:hover {
+    transform: translateY(-4px) scale(1.08) !important;
+    opacity: 1 !important;
+}
+
+/* Shimmer beam sweep melintasi tanggal hari ini */
+.calendar-today-cell::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    transform: skewX(-20deg);
+    animation: calendarTodayShimmer 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    pointer-events: none;
+}
+
+/* Keyframes Gerak Melayang Naik-Turun (Floating) */
+@keyframes calendarTodayFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+/* Keyframes Pergerakan Aliran Gradien */
+@keyframes calendarTodayGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Keyframes Pendaran Cahaya & Denyut Halo (Pulsing Glow & Radar Ripple) */
+@keyframes calendarTodayGlow {
+    0%, 100% {
+        box-shadow: 0 2px 8px rgba(79, 70, 229, 0.4), 0 0 0 0 rgba(99, 102, 241, 0.4);
+    }
+    50% {
+        box-shadow: 0 6px 18px rgba(79, 70, 229, 0.75), 0 0 0 4px rgba(129, 140, 248, 0.35);
+    }
+}
+
+/* Keyframes Shimmer Sweep */
+@keyframes calendarTodayShimmer {
+    0%, 20% {
+        left: -120%;
+    }
+    60%, 100% {
+        left: 200%;
+    }
+}
+
+/* Rounded Utilities Override */
+.app-shell .rounded-3xl,
+.app-shell .rounded-\[30px\] {
+    border-radius: 1.5rem !important;
+}
+.app-shell .rounded-2xl {
+    border-radius: 1.1rem !important;
+}
+
+.ui-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+}
+
+.ui-icon-btn:hover {
+    transform: scale(1.08);
+}
+
+/* Custom Segment & Tab Active State Overrides */
+.app-shell .bg-indigo-100 {
+    background-color: rgba(79, 70, 229, 0.08) !important;
+    color: #4f46e5 !important;
+    border: 1px solid rgba(79, 70, 229, 0.15) !important;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.05) !important;
+}
+
+/* Styling for Filter & Section Container */
+.app-shell section.border-slate-200.bg-white {
+    /* Removed background: #ffffff !important; to support dark mode */
+}
+
+/* Avatar Initials */
+.ui-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+/* Dark Mode Overrides for Sections and Tables */
+.dark .app-shell section.bg-white,
+.dark .app-shell div.bg-white:not(aside):not(header):not(nav):not(.relative) {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+/* Dark mode: pastikan semua bg-white di dalam dark mode jadi slate */
+.dark .app-shell .bg-white {
+    background-color: #1e293b !important;
+}
+.dark .app-shell aside.bg-white,
+.dark .app-shell header.bg-white,
+.dark .app-shell nav.bg-white {
+    background-color: #1e293b !important;
+}
+
+/* Dark mode: bg-slate-50 (background tabel/header) */
+.dark .app-shell .bg-slate-50 {
+    background-color: #0f172a !important;
+}
+.dark .app-shell .bg-slate-100 {
+    background-color: #1e293b !important;
+}
+
+.dark .app-shell table thead[class*="bg-indigo-100"],
+.dark .app-shell table thead[class*="bg-slate-50"] {
+    background-color: rgba(30, 41, 59, 0.8) !important;
+    color: #cbd5e1 !important;
+}
+
+.dark .app-shell table tbody {
+    color: #e2e8f0 !important;
+}
+
+.dark .app-shell table tbody[class*="divide-slate-100"] > tr:not(:first-child) {
+    border-color: #334155 !important;
+}
+
+.dark .app-shell table tbody tr[class*="hover:bg-slate-50"]:hover {
+    background-color: rgba(51, 65, 85, 0.5) !important;
+}
+
+.dark .app-shell table tbody td.text-slate-800,
+.dark .app-shell table tbody td.text-slate-700,
+.dark .app-shell table tbody p.text-slate-800,
+.dark .app-shell table tbody p.text-slate-700,
+.dark .app-shell table tbody span.text-slate-800,
+.dark .app-shell table tbody span.text-slate-700 {
+    color: #f1f5f9 !important;
+}
+
+.dark .app-shell table tbody td.text-slate-600,
+.dark .app-shell table tbody td.text-slate-500,
+.dark .app-shell table tbody div.text-slate-600,
+.dark .app-shell table tbody p.text-slate-500,
+.dark .app-shell table tbody p.text-slate-400,
+.dark .app-shell table tbody span.text-slate-500 {
+    color: #94a3b8 !important;
+}
+
+.dark .app-shell table tbody h5.text-slate-500 {
+    color: #cbd5e1 !important;
+}
+.dark .app-shell table tbody svg.text-slate-300 {
+    color: #475569 !important;
+}
+
+/* FullCalendar Dark Mode Fixes */
+.dark {
+    --fc-page-bg-color: #1e293b;
+    --fc-neutral-bg-color: #1e293b;
+    --fc-neutral-text-color: #cbd5e1;
+    --fc-border-color: #334155;
+    --fc-today-bg-color: rgba(79, 70, 229, 0.15);
+}
+.dark .fc-theme-standard th,
+.dark .fc-theme-standard td,
+.dark .fc-theme-standard .fc-scrollgrid {
+    border-color: #334155 !important;
+    background: transparent !important;
+}
+.dark .fc-theme-standard th {
+    background: #1e293b !important;
+}
+.dark .fc-col-header-cell-cushion,
+.dark .fc-daygrid-day-number,
+.dark .fc-list-day-text,
+.dark .fc-list-day-side-text {
+    color: #f1f5f9 !important;
+}
+.dark .fc .fc-toolbar-title {
+    color: #f8fafc !important;
+}
+.dark .fc .fc-button-primary {
+    background-color: #334155 !important;
+    border-color: #475569 !important;
+    color: #f8fafc !important;
+}
+.dark .fc .fc-button-primary:hover {
+    background-color: #475569 !important;
+}
+
+/* UI Badge Dark Mode Fixes */
+.dark .app-shell .ui-badge[class*="bg-slate-100"],
+.dark .app-shell span[class*="bg-slate-100"],
+.dark .app-shell .ui-badge[class*="bg-slate-200"],
+.dark .app-shell span[class*="bg-slate-200"] {
+    background-color: rgba(71, 85, 105, 0.5) !important;
+    color: #e2e8f0 !important;
+}
+.dark .app-shell .ui-badge[class*="bg-sky-100"],
+.dark .app-shell span[class*="bg-sky-100"] {
+    background-color: rgba(14, 165, 233, 0.2) !important;
+    color: #38bdf8 !important;
+}
+.dark .app-shell .ui-badge[class*="bg-emerald-100"],
+.dark .app-shell span[class*="bg-emerald-100"] {
+    background-color: rgba(16, 185, 129, 0.2) !important;
+    color: #34d399 !important;
+}
+.dark .app-shell .ui-badge[class*="bg-amber-100"],
+.dark .app-shell span[class*="bg-amber-100"] {
+    background-color: rgba(245, 158, 11, 0.2) !important;
+    color: #fbbf24 !important;
+}
+.dark .app-shell .ui-badge[class*="bg-red-100"],
+.dark .app-shell span[class*="bg-red-100"] {
+    background-color: rgba(239, 68, 68, 0.2) !important;
+    color: #f87171 !important;
+}
+
+/* Button Micro-interactions */
+.app-shell button, 
+.app-shell a.bg-indigo-600,
+.app-shell a.bg-brand-600,
+.app-shell a.bg-brand-500,
+.app-shell a.bg-teal-600 {
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.app-shell button:active:not(:disabled),
+.app-shell a.bg-indigo-600:active,
+.app-shell a.bg-brand-600:active,
+.app-shell a.bg-brand-500:active,
+.app-shell a.bg-teal-600:active {
+    transform: scale(0.96) !important;
+}
+
+/* Custom Tailwind Colors for Badges */
+.bg-emerald-600 { background-color: #059669 !important; }
+.hover\:bg-emerald-700:hover { background-color: #047857 !important; }
+.text-emerald-100 { color: #d1fae5 !important; }
+
+.bg-amber-600 { background-color: #d97706 !important; }
+.hover\:bg-amber-700:hover { background-color: #b45309 !important; }
+.text-amber-100 { color: #fef3c7 !important; }
+
+/* ═══════════════════════════════════════════════════
+   DARK MODE GLOBAL OVERRIDE (prioritas tertinggi)
+   ═══════════════════════════════════════════════════ */
+
+/* Background surface */
+html.dark body.app-shell {
+    background-color: #0f172a !important;
+    color: #e2e8f0 !important;
+}
+html.dark .app-shell .bg-white,
+html.dark .app-shell .bg-slate-50,
+html.dark .app-shell .bg-slate-100 {
+    background-color: #1e293b !important;
+}
+html.dark .app-shell .hover\:bg-slate-50:hover,
+html.dark .app-shell .hover\:bg-slate-100:hover {
+    background-color: #334155 !important;
+}
+html.dark .app-shell .bg-slate-50 {
+    background-color: #0f172a !important;
+}
+
+/* Tabel */
+html.dark .app-shell table thead {
+    background-color: #0f172a !important;
+    color: #94a3b8 !important;
+}
+html.dark .app-shell table tbody tr:hover {
+    background-color: rgba(51, 65, 85, 0.4) !important;
+}
+
+/* Input */
+html.dark .app-shell input,
+html.dark .app-shell select,
+html.dark .app-shell textarea {
+    background-color: #1e293b !important;
+    border-color: #475569 !important;
+    color: #e2e8f0 !important;
+}
+html.dark .app-shell input::placeholder,
+html.dark .app-shell textarea::placeholder {
+    color: #64748b !important;
+}
+
+/* Border */
+html.dark .app-shell .border-slate-200,
+html.dark .app-shell .border-slate-300 {
+    border-color: #334155 !important;
+}
+
+/* Text */
+html.dark .app-shell .text-slate-900 { color: #f8fafc !important; }
+html.dark .app-shell .text-slate-800 { color: #f1f5f9 !important; }
+html.dark .app-shell .text-slate-700 { color: #e2e8f0 !important; }
+html.dark .app-shell .text-slate-600 { color: #94a3b8 !important; }
+html.dark .app-shell .text-slate-500 { color: #94a3b8 !important; }
+html.dark .app-shell .text-slate-400 { color: #64748b !important; }
+html.dark .app-shell .text-slate-300 { color: #94a3b8 !important; }
+
+/* Divide lines */
+html.dark .app-shell .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+html.dark .app-shell .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+    border-color: #334155 !important;
+}
+
+/* FullCalendar dark */
+html.dark .fc,
+html.dark .fc-view,
+html.dark .fc-view-harness,
+html.dark .fc-scrollgrid,
+html.dark .fc-scrollgrid-section,
+html.dark .fc-scrollgrid-section > td,
+html.dark .fc-day,
+html.dark .fc-daygrid-day,
+html.dark .fc-daygrid-day-frame,
+html.dark .fc-list,
+html.dark .fc-list-view,
+html.dark .fc-list-section,
+html.dark .fc-list-day,
+html.dark .fc-list-event {
+    background-color: #1e293b !important;
+}
+html.dark .fc-day-other { background-color: #0f172a !important; }
+html.dark .fc .fc-col-header-cell-cushion { background-color: #1e293b !important; }
+
+/* SweetAlert2 & Mini Calendar Popup Dark Mode */
+html.dark .swal2-popup {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border: 1px solid #334155 !important;
+}
+html.dark .swal2-title {
+    color: #f8fafc !important;
+}
+html.dark .swal2-html-container {
+    color: #cbd5e1 !important;
+}
+html.dark .calendar-event-card {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+}
+html.dark .calendar-event-card:hover {
+    border-color: #475569 !important;
+    background-color: #1e293b !important;
+}
+html.dark .calendar-event-title {
+    color: #f8fafc !important;
+}
+html.dark .calendar-event-meta {
+    color: #94a3b8 !important;
+}
+html.dark .calendar-event-divider {
+    border-color: #334155 !important;
+}
+html.dark .calendar-event-link {
+    color: #38bdf8 !important;
+}
+html.dark .calendar-empty-text {
+    color: #cbd5e1 !important;
+}
+html.dark .calendar-empty-subtext {
+    color: #64748b !important;
+}
+html.dark .swal2-close {
+    color: #94a3b8 !important;
+}
+html.dark .swal2-close:hover {
+    color: #f8fafc !important;
+}
+
+/* Month & Date picker calendar icon styling */
+html.dark input[type="month"],
+html.dark input[type="date"],
+.dark input[type="month"],
+.dark input[type="date"] {
+    color-scheme: dark !important;
+}
+
+html.dark input[type="month"]::-webkit-calendar-picker-indicator,
+html.dark input[type="date"]::-webkit-calendar-picker-indicator,
+.dark input[type="month"]::-webkit-calendar-picker-indicator,
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer !important;
+    opacity: 0.95 !important;
+}
+
+html.dark input[type="month"]::-webkit-calendar-picker-indicator:hover,
+html.dark input[type="date"]::-webkit-calendar-picker-indicator:hover,
+.dark input[type="month"]::-webkit-calendar-picker-indicator:hover,
+.dark input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1 !important;
+}
+
+html:not(.dark) input[type="month"],
+html:not(.dark) input[type="date"] {
+    color-scheme: light !important;
+}
+
+/* Badge Hari Ini di Header Kalender Mini */
+.badge-header-hari-ini {
+    background-color: #e0e7ff !important;
+    color: #3730a3 !important;
+    border-color: #a5b4fc !important;
+}
+.dark .badge-header-hari-ini,
+html.dark .badge-header-hari-ini {
+    background-color: rgba(49, 46, 129, 0.45) !important;
+    color: #e0e7ff !important;
+    border-color: rgba(129, 140, 248, 0.35) !important;
+}
+.dark .badge-header-hari-ini strong,
+html.dark .badge-header-hari-ini strong {
+    color: #ffffff !important;
+}
+.badge-header-hari-ini .badge-dot-ping {
+    background-color: #818cf8 !important;
+}
+.badge-header-hari-ini .badge-dot-core {
+    background-color: #4f46e5 !important;
+}
+.dark .badge-header-hari-ini .badge-dot-core,
+html.dark .badge-header-hari-ini .badge-dot-core {
+    background-color: #818cf8 !important;
+}
+
+
