@@ -7,6 +7,7 @@ require_once __DIR__ . '/app/helpers.php';
 require_once __DIR__ . '/app/ai_agenda.php';
 
 $rawMonth = trim((string)($_GET['m'] ?? ''));
+$isAllMonths = ($rawMonth === 'all');
 if (preg_match('/^(\d{4})-(\d{2})$/', $rawMonth, $mMatches)) {
     $currentYear = (int)$mMatches[1];
     $currentMonth = (int)$mMatches[2];
@@ -153,10 +154,47 @@ $keluarBulanIni    = $dbError ? null : (int)($stats['keluar_bulan_ini'] ?? 0);
 $kegiatanBulanIni  = $dbError ? null : (int)($stats['kegiatan_bulan_ini'] ?? 0);
 $zoomBulanIni      = $dbError ? null : (int)($stats['zoom_bulan_ini'] ?? 0);
 
-// Label bulan Indonesia
+// Label bulan Indonesia (lengkap & ringkas)
 $namaBulan = ['', 'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+$namaBulanRingkas = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'];
 $bulanIni  = $namaBulan[$currentMonth];
 $tahunIni  = $currentYear;
+
+// Daftar pilihan bulan ringkas untuk filter Agenda Kegiatan & Agenda Zoom
+$monthList = [];
+if (!$dbError && isset($pdo)) {
+    try {
+        $monthList = $pdo->query("
+            SELECT DISTINCT SUBSTRING(agenda_date, 1, 7) AS ym 
+            FROM agendas 
+            WHERE agenda_date IS NOT NULL AND agenda_date > '2000-01-01' 
+            ORDER BY ym ASC
+        ")->fetchAll(PDO::FETCH_COLUMN);
+    } catch (Exception $e) {
+        // Abaikan jika query gagal
+    }
+}
+
+$currYmStr = sprintf('%04d-%02d', (int)date('Y'), (int)date('n'));
+if (!in_array($currYmStr, $monthList, true)) {
+    $monthList[] = $currYmStr;
+}
+
+$selectedMonthStr = sprintf('%04d-%02d', $currentYear, $currentMonth);
+if (!$isAllMonths && !in_array($selectedMonthStr, $monthList, true)) {
+    $monthList[] = $selectedMonthStr;
+}
+
+sort($monthList);
+
+$monthOptionsRingkas = [];
+foreach ($monthList as $ymVal) {
+    if (preg_match('/^(\d{4})-(\d{2})$/', (string)$ymVal, $mParts)) {
+        $mNum = (int)$mParts[2];
+        $yNum = (int)$mParts[1];
+        $monthOptionsRingkas[(string)$ymVal] = ($namaBulanRingkas[$mNum] ?? '') . ' ' . $yNum;
+    }
+}
 
 $prevMonth = $currentMonth - 1;
 $prevYear = $currentYear;
@@ -170,7 +208,7 @@ if ($nextMonth > 12) {
     $nextMonth = 1;
     $nextYear++;
 }
-$tabDefault = isset($_GET['m']) ? 'bulan' : 'semua';
+$tabDefault = ($isAllMonths || !isset($_GET['m'])) ? 'semua' : 'bulan';
 
 $allZero = !$dbError && ($totalMasuk === 0 && $totalKeluar === 0 && $totalDokumen === 0 && $totalAgenda === 0);
 
@@ -200,19 +238,19 @@ $qTooLong  = (isset($_GET['kq']) && mb_strlen(trim((string)$_GET['kq'])) > 100)
 // Simpan anchor untuk auto-scroll setelah redirect
 $scrollAnchor = in_array($_GET['_anchor'] ?? '', ['agenda-kegiatan', 'agenda-zoom']) ? (string)$_GET['_anchor'] : '';
 
-$isCurrentMonth = ($currentYear === (int)date('Y') && $currentMonth === (int)date('n'));
+$isCurrentMonth = !$isAllMonths && ($currentYear === (int)date('Y') && $currentMonth === (int)date('n'));
 
 // Base query params agar filter limit/paging tidak menghilangkan pencarian dan bulan
-$monthParam = sprintf('%04d-%02d', $currentYear, $currentMonth);
+$monthParam = $isAllMonths ? 'all' : sprintf('%04d-%02d', $currentYear, $currentMonth);
 $kBaseParams = array_filter([
-    'm'  => !$isCurrentMonth ? $monthParam : null,
+    'm'  => $isAllMonths ? 'all' : (!$isCurrentMonth ? $monthParam : null),
     'kq' => $kegiatanQ !== '' ? $kegiatanQ : null,
     'km' => $kegiatanMode !== '' ? $kegiatanMode : null,
     'zq' => $zoomQ !== '' ? $zoomQ : null,
     'zp' => $zoomPage > 1 ? $zoomPage : null,
 ]);
 $zBaseParams = array_filter([
-    'm'  => !$isCurrentMonth ? $monthParam : null,
+    'm'  => $isAllMonths ? 'all' : (!$isCurrentMonth ? $monthParam : null),
     'kq' => $kegiatanQ !== '' ? $kegiatanQ : null,
     'kp' => $kegiatanPage > 1 ? $kegiatanPage : null,
     'zq' => $zoomQ !== '' ? $zoomQ : null,
@@ -280,10 +318,14 @@ if (!$dbError && !$qTooLong) {
                 $kBase .= " AND (" . implode(' AND ', $kConds) . ")";
             }
         } else {
-            // Filter bulan & tahun jika tidak ada kata kunci pencarian
-            $kBase .= " AND " . $dateFilter;
-            $kParams['qms'] = $monthStart;
-            $kParams['qme'] = $monthEnd;
+            // Filter bulan & tahun jika tidak ada kata kunci pencarian dan bukan "Semua Bulan"
+            if (!$isAllMonths) {
+                $kBase .= " AND " . $dateFilter;
+                $kParams['qms'] = $monthStart;
+                $kParams['qme'] = $monthEnd;
+            } else {
+                $kBase .= " AND agenda_date IS NOT NULL AND agenda_date > '2000-01-01'";
+            }
         }
 
         if ($kegiatanMode !== '') {
@@ -450,10 +492,14 @@ if (!$dbError && !$qTooLong) {
                 $zBase .= " AND (" . implode(' AND ', $zConds) . ")";
             }
         } else {
-            // Filter bulan & tahun jika tidak ada kata kunci pencarian
-            $zBase .= " AND " . $dateFilter;
-            $zParams['qms'] = $monthStart;
-            $zParams['qme'] = $monthEnd;
+            // Filter bulan & tahun jika tidak ada kata kunci pencarian dan bukan "Semua Bulan"
+            if (!$isAllMonths) {
+                $zBase .= " AND " . $dateFilter;
+                $zParams['qms'] = $monthStart;
+                $zParams['qme'] = $monthEnd;
+            } else {
+                $zBase .= " AND agenda_date IS NOT NULL AND agenda_date > '2000-01-01'";
+            }
         }
 
         // Ambil SEMUA baris (tanpa LIMIT) — filter link meeting jalan
@@ -1160,6 +1206,62 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
         if (localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         }
+        function agendaMonthPicker(config) {
+            return {
+                open: false,
+                selectedVal: config.initialVal || '',
+                pickerYear: parseInt(config.initialYear, 10) || (new Date()).getFullYear(),
+                currentYear: (new Date()).getFullYear(),
+                currentMonth: (new Date()).getMonth() + 1,
+                theme: config.theme || 'cyan',
+                monthsList: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
+                fullMonths: ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+                get displayText() {
+                    if (this.selectedVal === 'all') {
+                        return 'Semua Bulan';
+                    }
+                    var parts = (this.selectedVal || '').split('-');
+                    if (parts.length === 2) {
+                        var y = parseInt(parts[0], 10);
+                        var m = parseInt(parts[1], 10);
+                        if (m >= 1 && m <= 12) {
+                            return this.fullMonths[m] + ' ' + y;
+                        }
+                    }
+                    return this.fullMonths[this.currentMonth] + ' ' + this.currentYear;
+                },
+                isSelected(mNum) {
+                    var mStr = String(mNum).padStart(2, '0');
+                    return this.selectedVal === (this.pickerYear + '-' + mStr);
+                },
+                isCurrent(mNum) {
+                    return this.pickerYear === this.currentYear && mNum === this.currentMonth;
+                },
+                selectMonth(mNum) {
+                    var mStr = String(mNum).padStart(2, '0');
+                    this.selectedVal = this.pickerYear + '-' + mStr;
+                    this.open = false;
+                    this.$nextTick(() => {
+                        var form = this.$el.closest('form');
+                        if (form) {
+                            if (form.__x && form.__x.$data) form.__x.$data.isSearching = true;
+                            form.submit();
+                        }
+                    });
+                },
+                selectAll() {
+                    this.selectedVal = 'all';
+                    this.open = false;
+                    this.$nextTick(() => {
+                        var form = this.$el.closest('form');
+                        if (form) {
+                            if (form.__x && form.__x.$data) form.__x.$data.isSearching = true;
+                            form.submit();
+                        }
+                    });
+                }
+            };
+        }
     </script>
     <script defer src="assets/js/alpine.min.js"></script>
     <script defer src="assets/js/sweetalert2.all.min.js"></script>
@@ -1422,7 +1524,7 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                             </svg>
                         </div>
                         <h2 id="heading-kegiatan" class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                            Agenda Kegiatan <?= $isCurrentMonth ? '' : 'Bulan ' . e($bulanIni) . ' ' . $tahunIni ?>
+                            Agenda Kegiatan <?= $isAllMonths ? '<span class="text-xs font-semibold text-slate-400 dark:text-slate-500">(Semua)</span>' : ($isCurrentMonth ? '' : '<span class="text-xs font-semibold text-slate-400 dark:text-slate-500">(' . e($namaBulanRingkas[$currentMonth] . ' ' . $tahunIni) . ')</span>') ?>
                         </h2>
                     </div>
                 </div>
@@ -1433,11 +1535,60 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                     <?php if ($zoomPage > 1): ?><input type="hidden" name="zp" value="<?= $zoomPage ?>"><?php endif; ?>
                     <?php if ($zoomLimit !== 5): ?><input type="hidden" name="zl" value="<?= $zoomLimit ?>"><?php endif; ?>
                     
-                    <input type="month" name="m" value="<?= sprintf('%04d-%02d', $currentYear, $currentMonth) ?>"
-                           @change="isSearching = true; $el.form.submit()"
-                           title="Pilih Bulan & Tahun Rekap"
-                           aria-label="Pilih Bulan & Tahun Rekap"
-                           class="month-picker-input rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none px-3 py-2 text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:border-kcyan-400 focus:ring-1 focus:ring-cyan-400 min-h-[44px] cursor-pointer">
+                    <div class="relative shrink-0" x-data="agendaMonthPicker({
+                        initialVal: '<?= $isAllMonths ? 'all' : sprintf('%04d-%02d', $currentYear, $currentMonth) ?>',
+                        initialYear: <?= $currentYear ?>,
+                        initialMonth: <?= $currentMonth ?>,
+                        theme: 'cyan'
+                    })" @click.outside="open = false">
+                        <button type="button" @click="open = !open"
+                                title="Pilih Bulan & Tahun Rekap"
+                                aria-label="Pilih Bulan & Tahun Rekap"
+                                class="month-picker-input flex items-center justify-between gap-2 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none px-3 py-2 text-sm text-slate-700 dark:text-slate-200 hover:border-kcyan-400 focus:outline-none focus:border-kcyan-400 focus:ring-1 focus:ring-cyan-400 min-h-[44px] cursor-pointer min-w-[145px] transition-colors">
+                            <span class="font-medium text-slate-800 dark:text-slate-200 whitespace-nowrap" x-text="displayText"><?= $isAllMonths ? 'Semua Bulan' : e($bulanIni . ' ' . $tahunIni) ?></span>
+                            <svg class="h-4 w-4 text-cyan-600 dark:text-cyan-400 shrink-0 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5"/>
+                            </svg>
+                        </button>
+                        <input type="hidden" name="m" :value="selectedVal" value="<?= $isAllMonths ? 'all' : sprintf('%04d-%02d', $currentYear, $currentMonth) ?>">
+
+                        <!-- Popover Date Picker -->
+                        <div x-show="open" x-transition.origin.top.duration.150ms x-cloak
+                             class="absolute left-0 top-full mt-1.5 z-50 w-64 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xl p-3 text-slate-800 dark:text-slate-200">
+                            
+                            <!-- Opsi Semua Bulan -->
+                            <button type="button" @click="selectAll()"
+                                    :class="selectedVal === 'all' ? 'bg-cyan-500 text-slate-950 font-bold shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 font-semibold'"
+                                    class="w-full mb-2.5 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs transition-colors">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <span>Semua Bulan</span>
+                            </button>
+
+                            <div class="border-t border-slate-100 dark:border-slate-700/80 pt-2">
+                                <!-- Navigasi Tahun -->
+                                <div class="flex items-center justify-between px-1 mb-2">
+                                    <button type="button" @click.stop="pickerYear--" class="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors" title="Tahun sebelumnya">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                                    </button>
+                                    <span class="text-sm font-bold tracking-tight text-slate-900 dark:text-white" x-text="pickerYear"></span>
+                                    <button type="button" @click.stop="pickerYear++" class="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors" title="Tahun berikutnya">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                                    </button>
+                                </div>
+
+                                <!-- Grid 12 Bulan (4x3) persis format Date Picker -->
+                                <div class="grid grid-cols-4 gap-1.5 text-center">
+                                    <template x-for="(mName, mIdx) in monthsList" :key="mIdx">
+                                        <button type="button" @click="selectMonth(mIdx + 1)"
+                                                :class="isSelected(mIdx + 1) ? 'bg-cyan-500 text-slate-950 font-bold shadow-sm' : (isCurrent(mIdx + 1) ? 'border border-cyan-500/50 text-cyan-600 dark:text-cyan-400 font-semibold hover:bg-slate-100 dark:hover:bg-white/10' : 'hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 font-medium')"
+                                                class="py-2 text-xs rounded-xl transition-colors"
+                                                x-text="mName">
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="relative flex-1 sm:w-64">
                         <input type="text" name="kq" value="<?= e($kegiatanQ) ?>"
@@ -1458,7 +1609,7 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                         <option value="10" <?= $kegiatanLimit === 10 ? 'selected' : '' ?>>10 data</option>
                         <option value="20" <?= $kegiatanLimit === 20 ? 'selected' : '' ?>>20 data</option>
                     </select>
-                    <?php if ($kegiatanQ !== '' || !$isCurrentMonth): ?>
+                    <?php if ($kegiatanQ !== '' || !$isCurrentMonth || $isAllMonths): ?>
                     <a href="?<?= http_build_query(array_filter(['zq' => $zoomQ ?: null, 'zp' => $zoomPage > 1 ? $zoomPage : null, 'zl' => $zoomLimit !== 5 ? $zoomLimit : null])) ?>#agenda-kegiatan"
                        class="inline-flex items-center gap-1 rounded-xl bg-red-100 dark:bg-red-600/20 border border-red-300 dark:border-red-500/40 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-600/30 px-3 py-2 text-xs font-bold min-h-[44px] transition-colors duration-200"
                        title="Reset filter & kembali ke bulan ini">
@@ -1555,10 +1706,14 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                                             <?= $modeBadge['label'] ?>
                                         </a>
                                     </div>
-                                    <?php if (!empty($row['location'])): ?>
+                                    <?php if (!empty($row['location'])):
+                                        $locRaw = (string)$row['location'];
+                                        $locDisplay = preg_replace('/Balai\s+Besar\s+Laboratorium\s+Kesehatan\s+Lingkungan/iu', 'BBLKL', $locRaw);
+                                        $locDisplay = preg_replace('/Balai\s+Besar\s+Labkesmas/iu', 'BBLKL', $locDisplay);
+                                    ?>
                                         <div class="text-slate-600 dark:text-slate-400 text-xs whitespace-nowrap flex items-center">
                                             <svg class="w-3.5 h-3.5 mr-1 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                            <span class="truncate max-w-[12rem]"><?= e((string)$row['location']) ?></span>
+                                            <span class="truncate inline-block max-w-[12rem]" style="max-width: 12rem;" title="<?= e($locRaw) ?>"><?= e($locDisplay) ?></span>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -1635,10 +1790,14 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                         </div>
                         <?php endif; ?>
                     </div>
-                    <?php if (!empty($row['location'])): ?>
+                    <?php if (!empty($row['location'])):
+                        $locMobRaw = (string)$row['location'];
+                        $locMobDisplay = preg_replace('/Balai\s+Besar\s+Laboratorium\s+Kesehatan\s+Lingkungan/iu', 'BBLKL', $locMobRaw);
+                        $locMobDisplay = preg_replace('/Balai\s+Besar\s+Labkesmas/iu', 'BBLKL', $locMobDisplay);
+                    ?>
                     <div class="mt-1 flex items-center gap-1.5">
                         <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        <p class="text-xs text-slate-500 truncate max-w-[15rem]"><?= e((string)$row['location']) ?></p>
+                        <p class="text-xs text-slate-500 truncate max-w-[15rem]" title="<?= e($locMobRaw) ?>"><?= e($locMobDisplay) ?></p>
                     </div>
                     <?php endif; ?>
                     <?php if ($kSrcIdMob > 0 && publicHasLetterAttachment($row)):
@@ -1733,7 +1892,7 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                             </svg>
                         </div>
                         <h2 id="heading-zoom" class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                            Agenda Zoom <?= $isCurrentMonth ? '' : 'Bulan ' . e($bulanIni) . ' ' . $tahunIni ?>
+                            Agenda Zoom <?= $isAllMonths ? '<span class="text-xs font-semibold text-slate-400 dark:text-slate-500">(Semua)</span>' : ($isCurrentMonth ? '' : '<span class="text-xs font-semibold text-slate-400 dark:text-slate-500">(' . e($namaBulanRingkas[$currentMonth] . ' ' . $tahunIni) . ')</span>') ?>
                         </h2>
                     </div>
                 </div>
@@ -1749,11 +1908,60 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                     <input type="hidden" name="kl" value="<?= $kegiatanLimit ?>">
                     <?php endif; ?>
 
-                    <input type="month" name="m" value="<?= sprintf('%04d-%02d', $currentYear, $currentMonth) ?>"
-                           @change="isSearching = true; $el.form.submit()"
-                           title="Pilih Bulan & Tahun Rekap"
-                           aria-label="Pilih Bulan & Tahun Rekap"
-                           class="month-picker-input rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none px-3 py-2 text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 min-h-[44px] cursor-pointer">
+                    <div class="relative shrink-0" x-data="agendaMonthPicker({
+                        initialVal: '<?= $isAllMonths ? 'all' : sprintf('%04d-%02d', $currentYear, $currentMonth) ?>',
+                        initialYear: <?= $currentYear ?>,
+                        initialMonth: <?= $currentMonth ?>,
+                        theme: 'rose'
+                    })" @click.outside="open = false">
+                        <button type="button" @click="open = !open"
+                                title="Pilih Bulan & Tahun Rekap"
+                                aria-label="Pilih Bulan & Tahun Rekap"
+                                class="month-picker-input flex items-center justify-between gap-2 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none px-3 py-2 text-sm text-slate-700 dark:text-slate-200 hover:border-rose-400 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 min-h-[44px] cursor-pointer min-w-[145px] transition-colors">
+                            <span class="font-medium text-slate-800 dark:text-slate-200 whitespace-nowrap" x-text="displayText"><?= $isAllMonths ? 'Semua Bulan' : e($bulanIni . ' ' . $tahunIni) ?></span>
+                            <svg class="h-4 w-4 text-rose-500 dark:text-rose-400 shrink-0 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5"/>
+                            </svg>
+                        </button>
+                        <input type="hidden" name="m" :value="selectedVal" value="<?= $isAllMonths ? 'all' : sprintf('%04d-%02d', $currentYear, $currentMonth) ?>">
+
+                        <!-- Popover Date Picker -->
+                        <div x-show="open" x-transition.origin.top.duration.150ms x-cloak
+                             class="absolute left-0 top-full mt-1.5 z-50 w-64 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xl p-3 text-slate-800 dark:text-slate-200">
+                            
+                            <!-- Opsi Semua Bulan -->
+                            <button type="button" @click="selectAll()"
+                                    :class="selectedVal === 'all' ? 'bg-rose-500 text-white font-bold shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 font-semibold'"
+                                    class="w-full mb-2.5 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs transition-colors">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                <span>Semua Bulan</span>
+                            </button>
+
+                            <div class="border-t border-slate-100 dark:border-slate-700/80 pt-2">
+                                <!-- Navigasi Tahun -->
+                                <div class="flex items-center justify-between px-1 mb-2">
+                                    <button type="button" @click.stop="pickerYear--" class="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors" title="Tahun sebelumnya">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                                    </button>
+                                    <span class="text-sm font-bold tracking-tight text-slate-900 dark:text-white" x-text="pickerYear"></span>
+                                    <button type="button" @click.stop="pickerYear++" class="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors" title="Tahun berikutnya">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                                    </button>
+                                </div>
+
+                                <!-- Grid 12 Bulan (4x3) persis format Date Picker -->
+                                <div class="grid grid-cols-4 gap-1.5 text-center">
+                                    <template x-for="(mName, mIdx) in monthsList" :key="mIdx">
+                                        <button type="button" @click="selectMonth(mIdx + 1)"
+                                                :class="isSelected(mIdx + 1) ? 'bg-rose-500 text-white font-bold shadow-sm' : (isCurrent(mIdx + 1) ? 'border border-rose-500/50 text-rose-600 dark:text-rose-400 font-semibold hover:bg-slate-100 dark:hover:bg-white/10' : 'hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 font-medium')"
+                                                class="py-2 text-xs rounded-xl transition-colors"
+                                                x-text="mName">
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="relative flex-1 sm:w-64">
                         <input type="text" name="zq" value="<?= e($zoomQ) ?>" placeholder="Cari judul meeting atau no. surat..."
@@ -1772,7 +1980,7 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                         <option value="10" <?= $zoomLimit === 10 ? 'selected' : '' ?>>10 data</option>
                         <option value="20" <?= $zoomLimit === 20 ? 'selected' : '' ?>>20 data</option>
                     </select>
-                    <?php if ($zoomQ !== '' || !$isCurrentMonth): ?>
+                    <?php if ($zoomQ !== '' || !$isCurrentMonth || $isAllMonths): ?>
                     <a href="?<?= http_build_query(array_filter(['kq' => $kegiatanQ ?: null, 'kp' => $kegiatanPage > 1 ? $kegiatanPage : null, 'kl' => $kegiatanLimit !== 5 ? $kegiatanLimit : null])) ?>#agenda-zoom"
                        class="inline-flex items-center gap-1 rounded-xl bg-red-100 dark:bg-red-600/20 border border-red-300 dark:border-red-500/40 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-600/30 px-3 py-2 text-xs font-bold min-h-[44px] transition-colors duration-200"
                        title="Reset filter & kembali ke bulan ini">
