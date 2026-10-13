@@ -20,7 +20,7 @@ if (!in_array($scheduleFilter, ['today', 'upcoming', 'done'], true)) {
 
 $conditions = [
     "a.entry_type = 'kegiatan'",
-    "(a.agenda_mode IN ('zoom', 'hybrid') OR (a.zoom_link IS NOT NULL AND a.zoom_link <> ''))",
+    "(a.agenda_mode IN ('zoom', 'hybrid') OR (a.zoom_link IS NOT NULL AND a.zoom_link <> '') OR (a.zoom_meeting_id IS NOT NULL AND a.zoom_meeting_id <> ''))",
 ];
 $params = [];
 
@@ -45,7 +45,7 @@ $statsStmt = $pdo->query(
         SUM(CASE WHEN COALESCE(agenda_date_end, agenda_date) < CURDATE() THEN 1 ELSE 0 END) AS selesai
      FROM agendas
      WHERE entry_type = 'kegiatan'
-       AND (agenda_mode IN ('zoom', 'hybrid') OR (zoom_link IS NOT NULL AND zoom_link <> ''))"
+       AND (agenda_mode IN ('zoom', 'hybrid') OR (zoom_link IS NOT NULL AND zoom_link <> '') OR (zoom_meeting_id IS NOT NULL AND zoom_meeting_id <> ''))"
 );
 $stats = $statsStmt->fetch() ?: ['total_zoom' => 0, 'hari_ini' => 0, 'selesai' => 0];
 
@@ -75,7 +75,7 @@ $zoomReminderStmt = $pdo->query(
     "SELECT COUNT(*) AS total_zoom_reminder
      FROM agendas
      WHERE entry_type = 'kegiatan'
-       AND (agenda_mode IN ('zoom', 'hybrid') OR (zoom_link IS NOT NULL AND zoom_link <> ''))
+       AND (agenda_mode IN ('zoom', 'hybrid') OR (zoom_link IS NOT NULL AND zoom_link <> '') OR (zoom_meeting_id IS NOT NULL AND zoom_meeting_id <> ''))
        AND reminder_h1_enabled = 1
        AND reminder_h1_sent_at IS NULL
        AND reminder_h1_at IS NOT NULL
@@ -311,6 +311,12 @@ require_once __DIR__ . '/includes/header.php';
                                         'id' => (int) $row['id'],
                                     ]);
                                 }
+                            }
+                        }
+                        if ($joinUrl === null && !empty($row['zoom_meeting_id'])) {
+                            $cleanMeetingDigits = preg_replace('/\D/', '', (string) $row['zoom_meeting_id']);
+                            if (strlen($cleanMeetingDigits) >= 9 && strlen($cleanMeetingDigits) <= 12) {
+                                $joinUrl = 'https://zoom.us/j/' . $cleanMeetingDigits;
                             }
                         }
                         ?>

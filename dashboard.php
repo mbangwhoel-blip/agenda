@@ -39,7 +39,7 @@ $kegiatanTotalSql = "SELECT COUNT(*) FROM agendas WHERE entry_type IN ('kegiatan
 if ($filterMonth !== '') $kegiatanTotalSql .= " AND DATE_FORMAT(agenda_date, '%Y-%m') = " . $pdo->quote($filterMonth);
 $kegiatanTotal = (int)$pdo->query($kegiatanTotalSql)->fetchColumn();
 
-$zoomTotalSql = "SELECT COUNT(*) FROM agendas WHERE entry_type IN ('kegiatan', 'agenda_zoom') AND (agenda_mode IN ('zoom', 'hybrid') OR (zoom_link IS NOT NULL AND zoom_link <> ''))";
+$zoomTotalSql = "SELECT COUNT(*) FROM agendas WHERE entry_type IN ('kegiatan', 'agenda_zoom') AND (agenda_mode IN ('zoom', 'hybrid') OR (zoom_link IS NOT NULL AND zoom_link <> '') OR (zoom_meeting_id IS NOT NULL AND zoom_meeting_id <> ''))";
 if ($filterMonth !== '') $zoomTotalSql .= " AND DATE_FORMAT(agenda_date, '%Y-%m') = " . $pdo->quote($filterMonth);
 $zoomTotal = (int)$pdo->query($zoomTotalSql)->fetchColumn();
 $adminDispTotal = !isPegawai() ? (int)$pdo->query("SELECT COUNT(*) FROM agenda_disposition_items")->fetchColumn() : 0;
@@ -106,7 +106,7 @@ $zoomSql = "SELECT a.id, a.user_id, a.title, a.agenda_date, a.agenda_time, a.zoo
             FROM agendas a
             LEFT JOIN agendas s ON s.id = a.source_agenda_id
             WHERE a.entry_type = 'kegiatan'
-              AND (a.agenda_mode IN ('zoom', 'hybrid') OR (a.zoom_link IS NOT NULL AND a.zoom_link <> ''))";
+              AND (a.agenda_mode IN ('zoom', 'hybrid') OR (a.zoom_link IS NOT NULL AND a.zoom_link <> '') OR (a.zoom_meeting_id IS NOT NULL AND a.zoom_meeting_id <> ''))";
 $zoomParams = [];
 if ($zoomQ !== '') {
     $zoomSql .= " AND (a.title LIKE :q_z1 OR a.zoom_meeting_id LIKE :q_z2 OR a.zoom_link LIKE :q_z3)";
@@ -1125,6 +1125,12 @@ if ($nextMonth > 12) {
                         <?php foreach ($zoomAgendas as $i => $zoom):
                             $badge   = dashboardZoomScheduleBadge((string) $zoom['agenda_date'], !empty($zoom['agenda_date_end']) ? (string)$zoom['agenda_date_end'] : null);
                             $joinUrl = dashboardNormalizeMeetingUrl((string) ($zoom['zoom_link'] ?? ''));
+                            if ($joinUrl === null && !empty($zoom['zoom_meeting_id'])) {
+                                $cleanMeetingDigits = preg_replace('/\D/', '', (string) $zoom['zoom_meeting_id']);
+                                if (strlen($cleanMeetingDigits) >= 9 && strlen($cleanMeetingDigits) <= 12) {
+                                    $joinUrl = 'https://zoom.us/j/' . $cleanMeetingDigits;
+                                }
+                            }
                         ?>
                         <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-700/50 transition-colors">
                             <td class="px-3 py-3 font-semibold text-indigo-600"><?= $zoomOffset + $i + 1; ?></td>

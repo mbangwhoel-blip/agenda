@@ -738,10 +738,30 @@ function isMeetingUrlWithContext(?string $url, string $context): bool
 
 function extractZoomMeetingId(string $text): ?string
 {
-    if (preg_match('/\b(\d{3}[\s-]?\d{3,4}[\s-]?\d{4})\b/', $text, $matches) !== 1) {
-        return null;
+    // Prioritaskan yang didahului label eksplisit: meeting id / id rapat / id meeting / zoom id
+    if (preg_match('/(?:meeting\s*id|id\s*meeting|id\s*rapat|rapat\s*id|zoom\s*id)\s*[:\-\=]?\s*([0-9\s\-]{9,15})/i', $text, $matches) === 1) {
+        $raw = trim((string) ($matches[1] ?? ''));
+        $digits = preg_replace('/\D/', '', $raw);
+        if (strlen($digits) >= 9 && strlen($digits) <= 12) {
+            return preg_replace('/\s+/', ' ', $raw);
+        }
     }
-    return preg_replace('/\s+/', ' ', trim((string) ($matches[1] ?? '')));
+
+    if (preg_match_all('/\b(\d{3}[\s-]?\d{3,4}[\s-]?\d{4})\b/', $text, $allMatches) > 0) {
+        foreach ($allMatches[1] as $candidate) {
+            $candidateStr = trim((string) $candidate);
+            $digits = preg_replace('/\D/', '', $candidateStr);
+            // Abaikan nomor kontak / telepon seluler (diawali 08)
+            if (str_starts_with($digits, '08')) {
+                continue;
+            }
+            if (strlen($digits) >= 9 && strlen($digits) <= 12) {
+                return preg_replace('/\s+/', ' ', $candidateStr);
+            }
+        }
+    }
+
+    return null;
 }
 
 function extractZoomPasscode(string $text): ?string
@@ -1121,21 +1141,24 @@ function hasStrongZoomEvidence(
     string $passcode
 ): bool {
 
-    // Sinyal KUAT: URL meeting yang valid (zoom.us, meet.google.com, teams, dll.)
+    // Sinyal KUAT 1: URL meeting yang valid (zoom.us, meet.google.com, teams, dll.)
     if (isMeetingUrlCandidate($zoomUrl)) {
         return true;
     }
 
-    // Sinyal KUAT: kredensial Zoom (Meeting ID atau Passcode) + konteks zoom
-    $hasCredentials = $meetingId !== '' || $passcode !== '';
-    if ($hasCredentials && looksLikeZoomMeeting($context)) {
-        return true;
+    // Sinyal KUAT 2: Kredensial Zoom (Meeting ID atau Passcode)
+    // Sering kali surat kedinasan (Kemenkes/UPT) hanya mencantumkan Meeting ID dan Passcode
+    // tanpa link URL dan tanpa menuliskan kata "zoom".
+    if ($meetingId !== '' || $passcode !== '') {
+        // Jika ada Meeting ID & Passcode sekaligus, sudah pasti online meeting
+        if ($meetingId !== '' && $passcode !== '') {
+            return true;
+        }
+        // Jika ada Meeting ID atau Passcode + petunjuk meeting credential / zoom
+        if (looksLikeZoomMeeting($context) || hasMeetingCredentialHints($context)) {
+            return true;
+        }
     }
-
-    // Catatan: kata "zoom" saja tanpa URL/ID/passcode TIDAK cukup.
-    // "password" / "id rapat" / "meeting id" tanpa angka spesifik juga
-    // tidak cukup — banyak dokumen administratif menyebut kata-kata ini
-    // tanpa benar-benar berisi meeting Zoom.
 
     return false;
 }
@@ -1827,6 +1850,14 @@ function autoGenerateAgendaFromLetter(PDO $pdo, int $letterId, bool $skipAttachm
     if ($zoomUrl === null && $isZoom && $existingZoomLink !== '' && isMeetingUrlWithContext($existingZoomLink, $context)) {
         $zoomUrl = $existingZoomLink;
     }
+    // Jika tidak ada URL link di dokumen tapi terbukti Zoom dan memiliki Meeting ID,
+    // buat tautan join Zoom standar agar tombol "Gabung" aktif dan masuk agenda zoom.
+    if ($zoomUrl === null && $isZoom && $meetingId !== '') {
+        $cleanMeetingDigits = preg_replace('/\D/', '', $meetingId);
+        if (strlen($cleanMeetingDigits) >= 9 && strlen($cleanMeetingDigits) <= 12) {
+            $zoomUrl = 'https://zoom.us/j/' . $cleanMeetingDigits;
+        }
+    }
     $agendaMode = $isZoom ? 'zoom' : 'offline';
     $rawLocation = trim((string) ($letter['location'] ?? ''));
     if ($isZoom) {
@@ -2037,6 +2068,13 @@ function autoExtractZoomFromKegiatan(PDO $pdo, int $kegiatanId): array
         || (str_contains($titleLower, 'webinar') && isMeetingUrlCandidate($zoomUrl));
 
     $agendaMode = $isZoom ? 'zoom' : (string) ($row['agenda_mode'] ?? 'offline');
+
+    if ($zoomUrl === null && $isZoom && $meetingId !== '') {
+        $cleanMeetingDigits = preg_replace('/\D/', '', $meetingId);
+        if (strlen($cleanMeetingDigits) >= 9 && strlen($cleanMeetingDigits) <= 12) {
+            $zoomUrl = 'https://zoom.us/j/' . $cleanMeetingDigits;
+        }
+    }
 
     // Hanya update jika ada yang berubah
     $newZoomLink = $isZoom ? ($zoomUrl ?? '') : '';
