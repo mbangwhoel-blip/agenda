@@ -4,7 +4,18 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/app/helpers.php';
 
+$redirectTarget = trim((string)($_GET['redirect'] ?? $_POST['redirect'] ?? ''));
+if ($redirectTarget !== '') {
+    $parsed = parse_url($redirectTarget);
+    if (!empty($parsed['host']) || !empty($parsed['scheme']) || str_starts_with($redirectTarget, '//') || str_starts_with($redirectTarget, '\\')) {
+        $redirectTarget = '';
+    }
+}
+
 if (currentUser()) {
+    if ($redirectTarget !== '') {
+        redirect($redirectTarget);
+    }
     redirect('dashboard.php');
 }
 
@@ -137,6 +148,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             session_regenerate_id(true);
                             $_SESSION['user'] = $sessionData;
                             logActivity('login', "Pengguna {$user['username']} berhasil login.");
+                            if ($redirectTarget !== '') {
+                                redirect($redirectTarget);
+                            }
                             if (($user['role'] ?? '') === 'pimpinan') {
                                 redirect('disposisi.php');
                             }
@@ -165,6 +179,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     'employee_id' => (int) $emp['id']
                                 ];
                                 logActivity('login', "Pegawai {$emp['username']} berhasil login.");
+                                if ($redirectTarget !== '') {
+                                    redirect($redirectTarget);
+                                }
                                 redirect('dashboard.php');
                             }
                         } else {
@@ -230,6 +247,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <form id="login-form" method="post" class="mt-6 space-y-4" autocomplete="on" x-data="{ loading: false }" @submit="loading = true">
                     <?= csrf_field(); ?>
+                    <?php if ($redirectTarget !== ''): ?>
+                        <input type="hidden" name="redirect" value="<?= e($redirectTarget); ?>">
+                    <?php endif; ?>
                     <div>
                         <label for="login-username" class="mb-1 block text-sm font-semibold text-slate-600">Username</label>
                         <input id="login-username" type="text" name="username" autocomplete="username" required

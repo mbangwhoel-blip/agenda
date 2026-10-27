@@ -6,6 +6,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/app/helpers.php';
 require_once __DIR__ . '/app/ai_agenda.php';
 
+$isUserLoggedIn = isLoggedIn();
+
 $rawMonth = trim((string)($_GET['m'] ?? ''));
 $isAllMonths = ($rawMonth === 'all');
 if (preg_match('/^(\d{4})-(\d{2})$/', $rawMonth, $mMatches)) {
@@ -1325,13 +1327,22 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-[18px] w-[18px] dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-[18px] w-[18px] hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                 </button>
-                <!-- Tombol Login &mdash; lebih menonjol -->
+                <!-- Tombol Login / Dashboard -->
+                <?php if ($isUserLoggedIn): ?>
+                <a href="dashboard.php"
+                   aria-label="Buka Dashboard"
+                   class="hidden sm:inline-flex items-center gap-2 rounded-xl bg-kcyan-500 hover:bg-kcyan-400 text-slate-950 font-bold px-5 py-2.5 text-sm min-h-[44px] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 shadow-md shadow-cyan-500/20">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
+                    Dashboard
+                </a>
+                <?php else: ?>
                 <a href="login.php"
                    aria-label="Masuk ke sistem"
                    class="hidden sm:inline-flex items-center gap-2 rounded-xl bg-kcyan-500 hover:bg-kcyan-400 text-slate-950 font-bold px-5 py-2.5 text-sm min-h-[44px] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 shadow-md shadow-cyan-500/20">
                     <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/></svg>
                     Login
                 </a>
+                <?php endif; ?>
             </div>
         </div>
     </header>
@@ -1356,10 +1367,18 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                         Satu dashboard untuk mencatat surat masuk/keluar, jadwal kegiatan, lampiran dokumen, dan laporan ekspor dengan tampilan modern yang nyaman dipakai dari laptop maupun HP.
                     </p>
                     <div class="animate-fade-in-up mt-8 flex flex-wrap gap-3" style="animation-delay: 300ms;">
+                        <?php if ($isUserLoggedIn): ?>
+                        <a href="dashboard.php"
+                           class="bg-kcyan-500 hover:bg-kcyan-400 text-slate-950 font-bold rounded-xl px-5 py-3 text-sm min-h-[44px] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 flex items-center gap-2">
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
+                            Buka Dashboard
+                        </a>
+                        <?php else: ?>
                         <a href="login.php"
                            class="bg-kcyan-500 hover:bg-kcyan-400 text-slate-950 font-bold rounded-xl px-5 py-3 text-sm min-h-[44px] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 flex items-center">
                             Masuk ke Sistem
                         </a>
+                        <?php endif; ?>
                         <a href="#agenda-kegiatan" class="flex items-center rounded-xl border border-slate-300 dark:border-white/30 px-5 py-3 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/10 min-h-[44px] transition-colors duration-200">Lihat Jadwal</a>
                         <a href="#fitur" class="hidden sm:flex items-center rounded-xl border border-slate-300 dark:border-white/30 px-5 py-3 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/10 min-h-[44px] transition-colors duration-200">Lihat Fitur</a>
                     </div>
@@ -1723,12 +1742,17 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                                     $kDirection = $row['parent_direction'] ?? '';
                                     $kSuratLabel = $kDirection === 'masuk' ? 'Surat Masuk' : ($kDirection === 'keluar' ? 'Surat Keluar' : 'Surat');
                                     $kSuratClass = $kDirection === 'masuk' ? 'bg-emerald-600 hover:bg-emerald-700 text-emerald-100' : ($kDirection === 'keluar' ? 'bg-amber-600 hover:bg-amber-700 text-amber-100' : 'bg-indigo-600 hover:bg-indigo-700 text-indigo-100');
+                                    $kPreviewUrl = 'file_preview.php?id=' . (int)$row['id'] . '&source=1&return_to=index.php';
+                                    $kLinkUrl = $isUserLoggedIn ? $kPreviewUrl : ('login.php?redirect=' . urlencode($kPreviewUrl));
                                 ?>
-                                <a href="file_preview.php?id=<?= (int)$row['id'] ?>&source=1&return_to=index.php"
-                                   target="_blank" rel="noopener noreferrer"
-                                   aria-label="<?= e($kSuratLabel . ': ' . (string)$row['title']) ?>"
+                                <a href="<?= e($kLinkUrl) ?>"
+                                   <?= $isUserLoggedIn ? 'target="_blank" rel="noopener noreferrer"' : 'onclick="promptLoginForLetter(event, this.href, \'' . e($kSuratLabel) . '\')"' ?>
+                                   aria-label="<?= e(($isUserLoggedIn ? '' : 'Login terlebih dahulu untuk melihat ') . $kSuratLabel . ': ' . (string)$row['title']) ?>"
+                                   title="<?= e($isUserLoggedIn ? 'Lihat naskah ' . $kSuratLabel : 'Login terlebih dahulu untuk melihat naskah ' . $kSuratLabel) ?>"
                                    class="inline-flex items-center gap-1 rounded-lg <?= $kSuratClass ?> px-3 py-1 text-xs font-semibold min-h-[36px] transition-colors">
-                                    <?php if ($kDirection === 'masuk'): ?>
+                                    <?php if (!$isUserLoggedIn): ?>
+                                    <svg class="h-3.5 w-3.5 opacity-90 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25Z"/></svg>
+                                    <?php elseif ($kDirection === 'masuk'): ?>
                                     <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5h18M12 3v13.5m0-13.5L8 8m4-4 4 4"/></svg>
                                     <?php elseif ($kDirection === 'keluar'): ?>
                                     <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5h18M12 21V7.5m0 13.5L8 17m4 4 4-4"/></svg>
@@ -1804,13 +1828,18 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                         $kDirectionMob = $row['parent_direction'] ?? '';
                         $kSuratLabelMob = $kDirectionMob === 'masuk' ? 'Lihat Surat Masuk' : ($kDirectionMob === 'keluar' ? 'Lihat Surat Keluar' : 'Lihat Surat Asal');
                         $kSuratClassMob = $kDirectionMob === 'masuk' ? 'bg-emerald-600 hover:bg-emerald-700 text-emerald-100' : ($kDirectionMob === 'keluar' ? 'bg-amber-600 hover:bg-amber-700 text-amber-100' : 'bg-indigo-600 hover:bg-indigo-700 text-indigo-100');
+                        $kPreviewUrlMob = 'file_preview.php?id=' . (int)$row['id'] . '&source=1&return_to=index.php';
+                        $kLinkUrlMob = $isUserLoggedIn ? $kPreviewUrlMob : ('login.php?redirect=' . urlencode($kPreviewUrlMob));
                     ?>
                     <div class="mt-3 flex flex-wrap gap-2">
-                        <a href="file_preview.php?id=<?= (int)$row['id'] ?>&source=1&return_to=index.php"
-                           target="_blank" rel="noopener noreferrer"
-                           aria-label="<?= e($kSuratLabelMob . ': ' . (string)$row['title']) ?>"
+                        <a href="<?= e($kLinkUrlMob) ?>"
+                           <?= $isUserLoggedIn ? 'target="_blank" rel="noopener noreferrer"' : 'onclick="promptLoginForLetter(event, this.href, \'' . e($kSuratLabelMob) . '\')"' ?>
+                           aria-label="<?= e(($isUserLoggedIn ? '' : 'Login terlebih dahulu untuk melihat ') . $kSuratLabelMob . ': ' . (string)$row['title']) ?>"
+                           title="<?= e($isUserLoggedIn ? 'Lihat naskah ' . $kSuratLabelMob : 'Login terlebih dahulu untuk melihat naskah ' . $kSuratLabelMob) ?>"
                            class="inline-flex items-center gap-1.5 rounded-xl <?= $kSuratClassMob ?> px-3 py-2 text-xs font-semibold min-h-[44px] transition-colors">
-                            <?php if ($kDirectionMob === 'masuk'): ?>
+                            <?php if (!$isUserLoggedIn): ?>
+                            <svg class="h-3.5 w-3.5 opacity-90 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25Z"/></svg>
+                            <?php elseif ($kDirectionMob === 'masuk'): ?>
                             <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5h18M12 3v13.5m0-13.5L8 8m4-4 4 4"/></svg>
                             <?php elseif ($kDirectionMob === 'keluar'): ?>
                             <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5h18M12 21V7.5m0 13.5L8 17m4 4 4-4"/></svg>
@@ -2076,16 +2105,27 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                                             </svg>
                                             Gabung
                                         </a>
-                                        <?php if ($sourceId > 0 && publicHasLetterAttachment($row)): ?>
-                                        <a href="file_preview.php?id=<?= (int)$row['id'] ?>&source=1&return_to=index.php"
-                                           target="_blank" rel="noopener noreferrer"
-                                           aria-label="<?= e('Lihat surat asal: ' . (string)$row['title']) ?>"
-                                           class="inline-flex items-center gap-1 rounded-lg <?= ($row['parent_direction'] ?? '') === 'masuk' ? 'bg-emerald-600 hover:bg-emerald-700 text-emerald-100' : (($row['parent_direction'] ?? '') === 'keluar' ? 'bg-amber-600 hover:bg-amber-700 text-amber-100' : 'bg-indigo-600 hover:bg-indigo-700 text-indigo-100') ?> px-3 py-1 text-xs font-semibold min-h-[36px] whitespace-nowrap transition-colors">
+                                        <?php if ($sourceId > 0 && publicHasLetterAttachment($row)):
+                                            $zDirection = $row['parent_direction'] ?? '';
+                                            $zSuratLabel = $zDirection === 'masuk' ? 'Surat Masuk' : ($zDirection === 'keluar' ? 'Surat Keluar' : 'Surat');
+                                            $zSuratClass = $zDirection === 'masuk' ? 'bg-emerald-600 hover:bg-emerald-700 text-emerald-100' : ($zDirection === 'keluar' ? 'bg-amber-600 hover:bg-amber-700 text-amber-100' : 'bg-indigo-600 hover:bg-indigo-700 text-indigo-100');
+                                            $zPreviewUrl = 'file_preview.php?id=' . (int)$row['id'] . '&source=1&return_to=index.php';
+                                            $zLinkUrl = $isUserLoggedIn ? $zPreviewUrl : ('login.php?redirect=' . urlencode($zPreviewUrl));
+                                        ?>
+                                        <a href="<?= e($zLinkUrl) ?>"
+                                           <?= $isUserLoggedIn ? 'target="_blank" rel="noopener noreferrer"' : 'onclick="promptLoginForLetter(event, this.href, \'' . e($zSuratLabel) . '\')"' ?>
+                                           aria-label="<?= e(($isUserLoggedIn ? '' : 'Login terlebih dahulu untuk melihat ') . $zSuratLabel . ': ' . (string)$row['title']) ?>"
+                                           title="<?= e($isUserLoggedIn ? 'Lihat naskah ' . $zSuratLabel : 'Login terlebih dahulu untuk melihat naskah ' . $zSuratLabel) ?>"
+                                           class="inline-flex items-center gap-1 rounded-lg <?= $zSuratClass ?> px-3 py-1 text-xs font-semibold min-h-[36px] whitespace-nowrap transition-colors">
+                                            <?php if (!$isUserLoggedIn): ?>
+                                            <svg class="h-3.5 w-3.5 opacity-90 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25Z"/></svg>
+                                            <?php else: ?>
                                             <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9z"/>
                                             </svg>
-                                    <?= ($row['parent_direction'] ?? '') === 'masuk' ? 'Surat Masuk' : (($row['parent_direction'] ?? '') === 'keluar' ? 'Surat Keluar' : 'Surat') ?>
-                                </a>
+                                            <?php endif; ?>
+                                            <?= e($zSuratLabel) ?>
+                                        </a>
                                         <?php endif; ?>
                                     </div>
                                     <?php if (!empty($row['zoom_meeting_id']) || !empty($row['zoom_passcode'])): ?>
@@ -2160,15 +2200,26 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                             </svg>
                             Gabung
                         </a>
-                        <?php if ($sourceId > 0 && publicHasLetterAttachment($row)): ?>
-                        <a href="file_preview.php?id=<?= (int)$row['id'] ?>&source=1&return_to=index.php"
-                           target="_blank" rel="noopener noreferrer"
-                           aria-label="<?= e('Lihat surat asal: ' . (string)$row['title']) ?>"
-                           class="inline-flex items-center gap-1.5 rounded-xl <?= ($row['parent_direction'] ?? '') === 'masuk' ? 'bg-emerald-600 hover:bg-emerald-700 text-emerald-100' : (($row['parent_direction'] ?? '') === 'keluar' ? 'bg-amber-600 hover:bg-amber-700 text-amber-100' : 'bg-indigo-600 hover:bg-indigo-700 text-indigo-100') ?> px-3 py-2 text-xs font-semibold min-h-[44px] transition-colors">
+                        <?php if ($sourceId > 0 && publicHasLetterAttachment($row)):
+                            $zDirectionMob = $row['parent_direction'] ?? '';
+                            $zSuratLabelMob = $zDirectionMob === 'masuk' ? 'Surat Masuk' : ($zDirectionMob === 'keluar' ? 'Surat Keluar' : 'Surat');
+                            $zSuratClassMob = $zDirectionMob === 'masuk' ? 'bg-emerald-600 hover:bg-emerald-700 text-emerald-100' : ($zDirectionMob === 'keluar' ? 'bg-amber-600 hover:bg-amber-700 text-amber-100' : 'bg-indigo-600 hover:bg-indigo-700 text-indigo-100');
+                            $zPreviewUrlMob = 'file_preview.php?id=' . (int)$row['id'] . '&source=1&return_to=index.php';
+                            $zLinkUrlMob = $isUserLoggedIn ? $zPreviewUrlMob : ('login.php?redirect=' . urlencode($zPreviewUrlMob));
+                        ?>
+                        <a href="<?= e($zLinkUrlMob) ?>"
+                           <?= $isUserLoggedIn ? 'target="_blank" rel="noopener noreferrer"' : 'onclick="promptLoginForLetter(event, this.href, \'' . e($zSuratLabelMob) . '\')"' ?>
+                           aria-label="<?= e(($isUserLoggedIn ? '' : 'Login terlebih dahulu untuk melihat ') . $zSuratLabelMob . ': ' . (string)$row['title']) ?>"
+                           title="<?= e($isUserLoggedIn ? 'Lihat naskah ' . $zSuratLabelMob : 'Login terlebih dahulu untuk melihat naskah ' . $zSuratLabelMob) ?>"
+                           class="inline-flex items-center gap-1.5 rounded-xl <?= $zSuratClassMob ?> px-3 py-2 text-xs font-semibold min-h-[44px] transition-colors">
+                            <?php if (!$isUserLoggedIn): ?>
+                            <svg class="h-3.5 w-3.5 opacity-90 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25Z"/></svg>
+                            <?php else: ?>
                             <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9z"/>
                             </svg>
-                            Lihat <?= ($row['parent_direction'] ?? '') === 'masuk' ? 'Surat Masuk' : (($row['parent_direction'] ?? '') === 'keluar' ? 'Surat Keluar' : 'Surat') ?>
+                            <?php endif; ?>
+                            Lihat <?= e($zSuratLabelMob) ?>
                         </a>
                         <?php endif; ?>
                     </div>
@@ -2638,7 +2689,7 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
                     <span class="text-slate-400 dark:text-slate-600" aria-hidden="true">&bull;</span>
                     <a href="#agenda-kegiatan" class="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors duration-200">Jadwal</a>
                     <span class="text-slate-400 dark:text-slate-600" aria-hidden="true">&bull;</span>
-                    <a href="login.php" class="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors duration-200">Login</a>
+                    <a href="<?= $isUserLoggedIn ? 'dashboard.php' : 'login.php' ?>" class="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors duration-200"><?= $isUserLoggedIn ? 'Dashboard' : 'Login' ?></a>
                 </nav>
             </div>
         </div>
@@ -2681,11 +2732,19 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             <span class="text-[11px] font-semibold">Tema</span>
         </button>
+        <?php if ($isUserLoggedIn): ?>
+        <a href="dashboard.php"
+           class="flex flex-col items-center gap-0.5 text-kcyan-600 dark:text-kcyan-400 min-w-[56px]">
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
+            <span class="text-[11px] font-semibold">Dashboard</span>
+        </a>
+        <?php else: ?>
         <a href="login.php"
            class="flex flex-col items-center gap-0.5 text-kcyan-600 dark:text-kcyan-400 min-w-[56px]">
             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/></svg>
             <span class="text-[11px] font-semibold">Login</span>
         </a>
+        <?php endif; ?>
     </nav>
     <!-- Spacer agar konten tidak tertutup bottom nav di mobile -->
     <div class="sm:hidden h-16"></div>
@@ -2776,6 +2835,32 @@ function publicBuildZoomUrlFromId(string $meetingId, string $passcode = ''): ?st
             update();
             setInterval(update, 1000);
         })();
+
+        // Prompt konfirmasi login saat pengunjung publik ingin melihat surat masuk/keluar
+        function promptLoginForLetter(event, targetUrl, letterLabel) {
+            if (typeof Swal !== 'undefined') {
+                if (event && event.preventDefault) { event.preventDefault(); }
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Login Diperlukan',
+                    text: 'Untuk melihat dokumen naskah ' + (letterLabel || 'surat') + ', Anda harus login ke akun Anda terlebih dahulu.',
+                    showCancelButton: true,
+                    confirmButtonText: 'Login Sekarang',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#00b294',
+                    cancelButtonColor: '#64748b',
+                    customClass: {
+                        popup: 'rounded-2xl',
+                        confirmButton: 'rounded-xl font-bold px-4 py-2 text-sm',
+                        cancelButton: 'rounded-xl font-medium px-4 py-2 text-sm'
+                    }
+                }).then(function(result) {
+                    if (result && result.isConfirmed) {
+                        window.location.href = targetUrl;
+                    }
+                });
+            }
+        }
     </script>
 </body>
 </html>

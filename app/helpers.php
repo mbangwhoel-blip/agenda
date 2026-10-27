@@ -511,11 +511,16 @@ function isLoggedIn(): bool
     return currentUser() !== null;
 }
 
-function requireLogin(): void
+function requireLogin(?string $customMessage = null): void
 {
     if (!currentUser()) {
-        setFlash('error', 'Silakan login terlebih dahulu.');
-        redirect('login.php');
+        setFlash('error', $customMessage ?? 'Silakan login terlebih dahulu.');
+        $uri = (string) ($_SERVER['REQUEST_URI'] ?? '');
+        $redirectParam = '';
+        if ($uri !== '' && !str_contains($uri, 'login.php') && !str_contains($uri, 'logout.php')) {
+            $redirectParam = '?redirect=' . urlencode($uri);
+        }
+        redirect('login.php' . $redirectParam);
     }
 }
 

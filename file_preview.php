@@ -10,9 +10,7 @@ if (!in_array($returnTo, ['agenda.php', 'agenda_kegiatan.php', 'agenda_zoom.php'
 }
 
 if (!isLoggedIn()) {
-    if ($returnTo !== 'index.php') {
-        requireLogin();
-    }
+    requireLogin('Silakan login terlebih dahulu untuk melihat surat masuk dan surat keluar.');
 }
 
 // Rate limit: 60 preview per menit per user.
@@ -56,9 +54,7 @@ try {
 
     $hasAccess = false;
     if (!isLoggedIn()) {
-        if ($returnTo === 'index.php') {
-            $hasAccess = true;
-        }
+        $hasAccess = false;
     } elseif (isArsiparis() && ($row['entry_type'] ?? '') !== 'surat') {
         $hasAccess = false;
     } elseif (canManageLetterArchive((int) ($row['user_id'] ?? 0)) || isPimpinan()) {
@@ -67,11 +63,17 @@ try {
         if (($row['entry_type'] ?? '') === 'kegiatan') {
             $hasAccess = true;
         } else {
-            $chk = $pdo->prepare("SELECT 1 FROM agenda_disposition_items WHERE agenda_id IN (:aid, :source_aid) AND employee_id = :eid LIMIT 1");
+            $chk = $pdo->prepare("
+                SELECT 1 FROM agenda_disposition_items WHERE agenda_id IN (:aid, :source_aid) AND employee_id = :eid
+                UNION
+                SELECT 1 FROM agendas WHERE source_agenda_id = :aid_pub AND entry_type = 'kegiatan'
+                LIMIT 1
+            ");
             $chk->execute([
                 'aid' => $id,
                 'source_aid' => $row['source_agenda_id'] ?: 0,
-                'eid' => $_SESSION['user']['employee_id'] ?? 0
+                'eid' => $_SESSION['user']['employee_id'] ?? 0,
+                'aid_pub' => $id
             ]);
             if ($chk->fetchColumn()) {
                 $hasAccess = true;
