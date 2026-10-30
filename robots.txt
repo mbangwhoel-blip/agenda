@@ -1,0 +1,17 @@
+User-agent: *
+Disallow: /config/
+Disallow: /uploads/
+Disallow: /storage/
+Disallow: /tests/
+Disallow: /tools/
+Disallow: /database/
+Disallow: /scripts/
+Disallow: /app/
+Disallow: /*.sql$
+Disallow: /*.bak$
+Disallow: /*.log$
+Disallow: /*.env$
+Disallow: /*.ini$
+Disallow: /*.yml$
+Disallow: /*.yaml$
+

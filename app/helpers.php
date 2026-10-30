@@ -2,6 +2,26 @@
 
 declare(strict_types=1);
 
+// ==========================================
+// PHP VERSION COMPATIBILITY POLYFILLS
+// ==========================================
+// Polyfill diletakkan paling atas agar kompatibel di PHP 7.4 s/d 8.x
+if (!function_exists('str_starts_with')) {
+    function str_starts_with(string $haystack, string $needle): bool {
+        return $needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0;
+    }
+}
+if (!function_exists('str_ends_with')) {
+    function str_ends_with(string $haystack, string $needle): bool {
+        return $needle !== '' && substr($haystack, -strlen($needle)) === $needle;
+    }
+}
+if (!function_exists('str_contains')) {
+    function str_contains(string $haystack, string $needle): bool {
+        return $needle !== '' && strpos($haystack, $needle) !== false;
+    }
+}
+
 require_once __DIR__ . '/../config/database.php';
 $secretsFile = __DIR__ . '/../config/secrets.php';
 // File secrets tidak ikut tersimpan di Git/deployment. Aplikasi tetap dapat
@@ -21,7 +41,9 @@ require_once __DIR__ . '/../config/env.php';
  * 3. X-Frame-Options - Mencegah situs disematkan ke dalam tag iframe berbahaya (Clickjacking defense).
  * 4. X-Content-Type-Options - Mencegah peramban melakukan tebakan tipe file otomatis (MIME-sniffing).
  * 5. Referrer-Policy - Mengontrol seberapa banyak informasi referensi URL yang dikirim saat navigasi keluar.
- * 6. Permissions-Policy & X-XSS-Protection - Proteksi tambahan hardware/sensor & legacy XSS filter.
+ * 6. Cross-Origin-Opener-Policy - Mencegah serangan window.opener lintas origin.
+ * 7. Permissions-Policy - Menonaktifkan akses sensor perangkat keras yang tidak dibutuhkan.
+ * 8. X-XSS-Protection - Proteksi tambahan browser lama.
  */
 function sendSecurityHeaders(): void
 {
@@ -29,14 +51,14 @@ function sendSecurityHeaders(): void
         return;
     }
 
-    // Sembunyikan informasi versi PHP dan server (Cegah Information Disclosure)
+    // Sembunyikan informasi versi PHP dan server (Finding #14: Cegah Information Disclosure)
     @ini_set('expose_php', 'off');
     if (function_exists('header_remove')) {
         header_remove('X-Powered-By');
         header_remove('Server');
     }
 
-    // 1. Content-Security-Policy (CSP)
+    // Finding #3: Content-Security-Policy (CSP)
     $cspDirectives = [
         "default-src 'self'",
         "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io",
@@ -52,20 +74,25 @@ function sendSecurityHeaders(): void
     ];
     header('Content-Security-Policy: ' . implode('; ', $cspDirectives));
 
-    // 2. Strict-Transport-Security (HSTS - 1 tahun)
-    header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+    // Finding #4: Strict-Transport-Security (HSTS - 1 tahun + includeSubDomains + preload)
+    header('Strict-Transport-Security: max-age=31536000; includeSubDomains; preload');
 
-    // 3. X-Frame-Options (Clickjacking defense: izinkan iframe dari origin yang sama untuk PDF viewer)
+    // Finding #5: X-Frame-Options (Clickjacking defense)
     header('X-Frame-Options: SAMEORIGIN');
 
-    // 4. X-Content-Type-Options (MIME-sniffing defense)
+    // Finding #9: X-Content-Type-Options (MIME-sniffing defense)
     header('X-Content-Type-Options: nosniff');
 
-    // 5. Referrer-Policy
+    // Finding #10: Referrer-Policy
     header('Referrer-Policy: strict-origin-when-cross-origin');
 
-    // Proteksi tambahan: Batasi akses fitur sensor/device dan XSS legacy
-    header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
+    // Finding #15: Cross-Origin-Opener-Policy
+    header('Cross-Origin-Opener-Policy: same-origin-allow-popups');
+
+    // Finding #16: Permissions-Policy (Tutup akses ke hardware/sensor)
+    header('Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()');
+
+    // Proteksi tambahan XSS legacy
     header('X-XSS-Protection: 1; mode=block');
 }
 
@@ -73,19 +100,44 @@ function sendSecurityHeaders(): void
 sendSecurityHeaders();
 
 // ==========================================
-// SESSION HARDENING & INITIALIZATION
+// HTTPS ENFORCEMENT & SESSION HARDENING
 // ==========================================
-if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
-    if (PHP_SAPI !== 'cli') {
-        $isHttps = (
-            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-            || (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443)
-            || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https')
-            || (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) === 'on')
-            || (!empty($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off')
-            || (!empty($_SERVER['HTTP_CF_VISITOR']) && str_contains($_SERVER['HTTP_CF_VISITOR'], '"scheme":"https"'))
-        );
+if (PHP_SAPI !== 'cli') {
+    $isHttps = (
+        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443)
+        || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https')
+        || (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) === 'on')
+        || (!empty($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off')
+        || (!empty($_SERVER['HTTP_CF_VISITOR']) && str_contains($_SERVER['HTTP_CF_VISITOR'], '"scheme":"https"'))
+    );
 
+    $httpHost = (string)($_SERVER['HTTP_HOST'] ?? '');
+    $isLocalhost = (
+        $httpHost === 'localhost'
+        || str_starts_with($httpHost, '127.0.0.1')
+        || str_starts_with($httpHost, '192.168.')
+        || str_starts_with($httpHost, '10.')
+        || str_ends_with($httpHost, '.local')
+        || str_ends_with($httpHost, '.test')
+    );
+
+    // Finding #6: Redirect otomatis 301 dari HTTP ke HTTPS di server production
+    if (!$isHttps && !$isLocalhost && !headers_sent()) {
+        $redirectUrl = 'https://' . $httpHost . ($_SERVER['REQUEST_URI'] ?? '/');
+        header('HTTP/1.1 301 Moved Permanently');
+        header('Location: ' . $redirectUrl);
+        exit;
+    }
+
+    // Finding #2: Session Cookie Hardening (Secure, HttpOnly, SameSite=Lax)
+    @ini_set('session.cookie_httponly', '1');
+    @ini_set('session.cookie_secure', $isHttps ? '1' : '0');
+    @ini_set('session.cookie_samesite', 'Lax');
+    @ini_set('session.use_only_cookies', '1');
+    @ini_set('session.use_strict_mode', '1');
+
+    if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
         session_set_cookie_params([
             'lifetime' => 0,
             'path'     => '/',
@@ -94,37 +146,27 @@ if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
             'httponly' => true,
             'samesite' => 'Lax',
         ]);
-
-        @ini_set('session.use_only_cookies', '1');
-        @ini_set('session.use_strict_mode', '1');
+        session_start();
     }
 
-    session_start();
+    // Pastikan cookie session aktif membawa semua atribut keamanan yang dibutuhkan audit pentest
+    if (session_id() !== '' && !headers_sent()) {
+        setcookie(
+            session_name(),
+            session_id(),
+            [
+                'expires'  => 0,
+                'path'     => '/',
+                'domain'   => '',
+                'secure'   => $isHttps,
+                'httponly' => true,
+                'samesite' => 'Lax',
+            ]
+        );
+    }
 }
 require_once __DIR__ . '/i18n.php';
 require_once __DIR__ . '/google_drive_storage.php';
-
-if (!function_exists('str_starts_with')) {
-    function str_starts_with($haystack, $needle) {
-        $haystack = (string)$haystack;
-        $needle = (string)$needle;
-        return $needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0;
-    }
-}
-if (!function_exists('str_ends_with')) {
-    function str_ends_with($haystack, $needle) {
-        $haystack = (string)$haystack;
-        $needle = (string)$needle;
-        return $needle !== '' && substr($haystack, -strlen($needle)) === $needle;
-    }
-}
-if (!function_exists('str_contains')) {
-    function str_contains($haystack, $needle) {
-        $haystack = (string)$haystack;
-        $needle = (string)$needle;
-        return $needle !== '' && strpos($haystack, $needle) !== false;
-    }
-}
 
 // ==========================================
 // SMTP MAIL SERVER CONFIGURATION
