@@ -12,6 +12,67 @@ if (is_file($secretsFile)) {
 require_once __DIR__ . '/../config/env.php';
 
 // ==========================================
+// SECURITY HEADERS & DEFENSE IN DEPTH
+// ==========================================
+/**
+ * Mengirim Security Headers standar OWASP, BSSN, dan Kemenkes:
+ * 1. Content-Security-Policy (CSP) - Membatasi eksekusi script tidak sah, mencegah XSS dan injeksi data.
+ * 2. Strict-Transport-Security (HSTS) - Memaksa komunikasi selalu melalui koneksi HTTPS terenkripsi.
+ * 3. X-Frame-Options - Mencegah situs disematkan ke dalam tag iframe berbahaya (Clickjacking defense).
+ * 4. X-Content-Type-Options - Mencegah peramban melakukan tebakan tipe file otomatis (MIME-sniffing).
+ * 5. Referrer-Policy - Mengontrol seberapa banyak informasi referensi URL yang dikirim saat navigasi keluar.
+ * 6. Permissions-Policy & X-XSS-Protection - Proteksi tambahan hardware/sensor & legacy XSS filter.
+ */
+function sendSecurityHeaders(): void
+{
+    if (PHP_SAPI === 'cli' || headers_sent()) {
+        return;
+    }
+
+    // Sembunyikan informasi versi PHP dan server (Cegah Information Disclosure)
+    @ini_set('expose_php', 'off');
+    if (function_exists('header_remove')) {
+        header_remove('X-Powered-By');
+        header_remove('Server');
+    }
+
+    // 1. Content-Security-Policy (CSP)
+    $cspDirectives = [
+        "default-src 'self'",
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io",
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+        "font-src 'self' data: https://fonts.gstatic.com",
+        "img-src 'self' data: blob: https:",
+        "frame-src 'self' data: blob: https://drive.google.com",
+        "object-src 'self' data: blob:",
+        "connect-src 'self' https://plausible.io https://*.googleapis.com",
+        "frame-ancestors 'self'",
+        "base-uri 'self'",
+        "form-action 'self' https://accounts.google.com",
+    ];
+    header('Content-Security-Policy: ' . implode('; ', $cspDirectives));
+
+    // 2. Strict-Transport-Security (HSTS - 1 tahun)
+    header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+
+    // 3. X-Frame-Options (Clickjacking defense: izinkan iframe dari origin yang sama untuk PDF viewer)
+    header('X-Frame-Options: SAMEORIGIN');
+
+    // 4. X-Content-Type-Options (MIME-sniffing defense)
+    header('X-Content-Type-Options: nosniff');
+
+    // 5. Referrer-Policy
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+
+    // Proteksi tambahan: Batasi akses fitur sensor/device dan XSS legacy
+    header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
+    header('X-XSS-Protection: 1; mode=block');
+}
+
+// Kirim security headers secara otomatis pada setiap request web
+sendSecurityHeaders();
+
+// ==========================================
 // SESSION HARDENING & INITIALIZATION
 // ==========================================
 if (session_status() === PHP_SESSION_NONE && !headers_sent()) {

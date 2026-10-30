@@ -51,20 +51,24 @@ RedirectMatch 404 (^|/)(tools|tests|docs|database|scripts|\.kiro|\.github|node_m
     ExpiresDefault "access plus 1 hour"
 </IfModule>
 
+# Sembunyikan signature server di halaman error (404, 500, dll)
+ServerSignature Off
+
 # Security headers (defense in depth)
 <IfModule mod_headers.c>
+    # Sembunyikan banner teknologi dan versi (Information Disclosure)
+    Header always unset Server
+    Header unset Server
+    Header always unset X-Powered-By
+    Header unset X-Powered-By
+
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
-    # HSTS hanya aktif di HTTPS (uncomment saat produksi HTTPS)
-    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
-    # CSP: seluruh aset JS/CSS/font sudah lokal (alpine, sweetalert2, chart.js, fullcalendar,
-    # Plus Jakarta Sans self-hosted di assets/fonts/).
-    # 'unsafe-inline' untuk style diperlukan SweetAlert2 dan dark-mode script.
-    # 'unsafe-eval' untuk script diperlukan Alpine.js mengevaluasi expression x-data/@click.
-    # 'data:' di font-src diperlukan FullCalendar (embedded base64 font).
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; frame-src 'self' data: blob:; object-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; frame-src 'self' data: blob: https://drive.google.com; object-src 'self' data: blob:; connect-src 'self' https://plausible.io https://*.googleapis.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://accounts.google.com"
 </IfModule>
 
 # Pengaturan batas memori dan upload (sesuaikan jika perlu)
